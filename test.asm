@@ -1,0 +1,7 @@
+JAL x1, +12
+BEQ x10,x0,+0
+BNE x10,x0,+0
+BLT x10,x0,+0
+BGE x10,x0,+0
+BLTU x10,x0,+0
+BGEU x10,x0,+0
