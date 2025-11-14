@@ -23,21 +23,13 @@ initial begin
 	    $display("[%0t] Instruction memory initialized from instmem.dat", $time);
     `endif
     `endif
-     end
+ end
 // ==========================================================
 // Program Counter + Fetch Register
 // ==========================================================
 logic [31:0] instr_F;      // instruction fetched (registered)
 logic [11:0] pc, pc_next;  // 12 bits for 4K word addresses
 logic [11:0] branch_addr, jal_addr, jalr_addr;
-
-case(pcsrc_EX):
-	 // j type
-	 //set: pc_next = 
-         //b type
-	 //set: pc_next = branch_addr
-	default: pc_next = pc + 12'd1;
-	endcase
 
 // ==========================================================
 // Synchronous PC Update + Fetch
@@ -55,45 +47,23 @@ always_ff @(posedge clk) begin
         `endif
         `endif
     end
-    else begin
+    else if (!stall_FETCH) begin
         // Fetch instruction from memory
         instr_F <= instmem[pc];
-
-        // Detect uninitialized memory (fetching X)
-        if (instmem[pc] === 32'bx) begin
-            `ifndef SYNTHESIS
-            `ifndef ALTERA_RESERVED_QIS
-                $display("[%0t] ERROR: fetch at pc=0x%03h returned X (uninitialized memory). Halting.", $time, pc);
-            `endif
-            `endif
-            //$finish;
-        end
-
-        // Handle halt logic (0x00000000 = NOP/HALT)
-        /*if (halt_pending) begin
-            `ifndef SYNTHESIS
-            `ifndef ALTERA_RESERVED_QIS
-                $display("[%0t] HALT: encountered 0x00000000 at pc=0x%03h. Finishing simulation.", $time, pc);
-            `endif
-            `endif
-            //$finish;
-        end
-        else if (instmem[pc] == 32'h00000000) begin
-            halt_pending <= 1'b1;  // trigger halt next cycle
-        end
-        else begin
-            halt_pending <= 1'b0;
-        end*/
-
+        
         // Debug printout
         `ifndef SYNTHESIS
         `ifndef ALTERA_RESERVED_QIS
             $display("[%0t] FETCH: pc=0x%03h -> instr=0x%08h", $time, pc, instmem[pc]);
         `endif
         `endif
-
         // Update PC
+        //TODO add pcsrc case
+        pc_next = pc + 12'd1;
         pc <= pc_next;
+    end
+    else begin
+    	//stall
     end
 end
 
@@ -113,7 +83,7 @@ end
     logic [11:0] imm_i;
     logic [19:0] imm_u; 
     logic [6:0] opcode;
-    logic stall_FETCH;
+
 
     control_unit my_control_unit(
 	    .instr   (instr_F),
@@ -127,7 +97,8 @@ end
 	    .rs2     (rs2),
 	    .imm_i   (imm_i),
 	    .imm_u   (imm_u),
-	    .opcode(opcode)
+	    .opcode  (opcode),
+	    .stall_EX(stall_EX),
 	    .stall_FETCH(stall_FETCH)
     );
 
@@ -173,30 +144,34 @@ end
     logic [31:0] ex_csr_read_q;
     logic [31:0] ex_rs1_val_q;
     logic [1:0] pcsrc_EX;
-
+    logic [11:0] PC_EX;
+     //hazard detection registers
+    logic stall_EX;
+    logic isload_EX;
+    logic stall_FETCH;
+ 
+  
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
-            //ex_alu_R_q     <= 32'd0;
             ex_rd_q        <= 5'd0;
-            //ex_regwrite_q  <= 1'b0;
-            //ex_regsel_q    <= 2'b00;
             ex_gpio_we_q    <= 1'b0;
-            //ex_csr_addr_q  <= 12'd0;
             ex_csr_read_q  <= 32'd0;
             ex_imm_u_q     <= 20'd0;
-          //  ex_rs1_val_q <= 32'd0;
+            pcsrc_EX         <= 1'b0;
+            PC_EX          <= 12'b0;
+      
         end else begin
              `ifndef SYNTHESIS
 	    // print the fetch/decode/register state for last two cycles
 	    $display("[%0t] DBG: pc=%0h instr_F=0x%08h ctrl_rd=%0d rd_field=%0d ex_rd_q=%0d alu_R=0x%08h",
 		     $time, pc, instr_F, rd, instr_F[11:7], ex_rd_q, alu_R);
 	    `endif
-            
+            stall_EX <= stall_FETCH
             ex_rd_q        <= rd;
             ex_csr_read_q  <= rf_readdata1;
             ex_gpio_we_q    <= gpio_we;
             ex_imm_u_q     <= imm_u;
-            //ex_rs1_val_q <= rf_readdata1;
+            PC_EX          <= pc;
         end
     end
         assign ex_rs1_val_q = rf_readdata1;
@@ -225,7 +200,7 @@ end
     );
     
     //resolve pcsrc_EX TODO Finish
-    case(opcode):
+    //case(opcode):
 
 
     // ------------------------------------------------------------------
@@ -284,31 +259,17 @@ end
 			2'b00: rf_wdata <= csr_out;
 		        2'b01: rf_wdata <= {imm_u, 12'b0};   // U-type (LUI/AUIPC)
 		        2'b10: rf_wdata <= ex_alu_R_q;            // ALU result
+		        2'b11: rf_wdata <= {20'b0, PC_EX};
 		        default: rf_wdata <= 32'd0;
 		    endcase
 
 		    `ifndef SYNTHESIS
 		    `ifndef ALTERA_RESERVED_QIS
-		        $display("[%0t] WB: write x%0d <= 0x%08h (signed %0d), csr_out=0x%08h, ex_regsel_q=x%0d, ex_regwrite_q=%0d",
+		        $display("[%0t] WB: write x%0d <= 0x%08h (signed %0d), csr_out=0x%08h,  ex_regsel_q=x%0d, ex_regwrite_q=%0d",
 		                 $time, ex_rd_q, rf_wdata, $signed(rf_wdata), csr_out, ex_regsel_q, rf_we);
 		    `endif
 		    `endif
 		end
-
-		// -------- CSR / GPIO Write Handling --------
-		// Writes to GPIO happen one cycle after the EX stage triggers
-		/*if (ex_gpio_we_q && ex_csr_addr_q == 12'hf02) begin
-		    gpio_out <= ex_rs1_val_q; // value from rs1 at EX time
-		    `ifndef SYNTHESIS
-		    `ifndef ALTERA_RESERVED_QIS
-			$display("[%0t] CSR WRITE: gpio_out <= 0x%08h (signed %0d)",
-				 $time, ex_rs1_val_q, $signed(ex_rs1_val_q));
-		    `endif
-		    `endif
-		end*/
 	    end
 	end
-
-
 endmodule
-

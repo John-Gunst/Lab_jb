@@ -1,6 +1,7 @@
 module control_unit (
     input  logic [31:0] instr,
-    input logic stall_EX;
+    input logic stall_EX,
+    input logic [31,0] R_EX,
     output logic [3:0]  aluop,
     output logic        alusrc,
     output logic [1:0]  regsel,
@@ -45,13 +46,13 @@ module control_unit (
         regsel   = 2'b00;
         regwrite = 1'b0;
         gpio_we  = 1'b0;
-        stall_FETCH = 1'b0
-
+	stall_FETCH = 1'b0;
+	
         case (opcode)
             // ---------------- R-type (0110011)
             7'h33: begin
                 regsel   = 2'b10;
-            	regwrite = stall_EX? 1'b1: 1'b0;
+            	regwrite = stall_EX? 1'b0: 1'b1;
                 alusrc   = 1'b0;
                 gpio_we  = 1'b0;
 
@@ -82,7 +83,7 @@ module control_unit (
             // I-type (0010011)
             7'h13: begin
                 regsel   = 2'b10;
-            	regwrite = stall_EX? 1'b1: 1'b0;
+            	regwrite = stall_EX? 1'b0: 1'b1;
                 alusrc   = 1'b1;
                 gpio_we  = 1'b0;
                 case (funct3)
@@ -99,7 +100,7 @@ module control_unit (
             //  LUI (0110111)
             7'h37: begin
                 regsel   = 2'b01;
-            	regwrite = stall_EX? 1'b1: 1'b0;
+            	regwrite = stall_EX? 1'b0: 1'b1;
                 alusrc   = 1'b1;
                 aluop    = 4'b0011;
                 gpio_we  = 1'b0;
@@ -112,11 +113,11 @@ module control_unit (
                 if (imm_i == 12'hf02) begin
                     regsel   = 2'b00;
                     regwrite = 1'b0;
-                    gpio_we  = 1'b1; // write GPIO
+		    gpio_we = stall_EX? 1'b0: 1'b1;
                 end
                 else if (imm_i == 12'hf00) begin
                     regsel   = 2'b00;
-            	    regwrite = stall_EX? 1'b1: 1'b0;
+            	    regwrite = stall_EX? 1'b0: 1'b1;
                     gpio_we  = 1'b0; // read GPIO
                 end
             end
@@ -124,36 +125,49 @@ module control_unit (
             7'h6F: begin
             	alusrc = 1'b1;
             	aluop = 4'b0011;
-            	regwrite = stall_EX? 1'b1: 1'b0;
+            	regwrite = stall_EX? 1'b0: 1'b1;
             	regsel = 2'b10;
             	gpio_we = 1'b0;
+            	stall_FETCH = 1'b1;
             end
             //B-Type
             7'h63: begin
-            	//TODO: Determine alusrc code
-            	case (funct3)
-            	    3'b000: begin
-                	aluop = 4'b0100; // ==
-                    end
-                    3'b001: begin
-                	aluop = 4'b0100; // !=
-                    end
-                    3'b100: begin
-                	aluop = 4'b1100; // < (signed)
-                    end
-                    3'b101: begin
-                	aluop = 4'b1100; // >= (signed)
-                    end
-                    3'b110: begin
-                	aluop = 4'b1101; // < (unsigned)
-                    end
-                    3'b111: begin
-                	aluop = 4'b1101; // >= (unsigned)
-                    end
 		alusrc = 1'b0;
 		regsel = 2'b00;
 		regwrite = 1'b0;
 		gpio_we = 1'b0;
+            	case (funct3)
+            	    3'b000: begin
+                	aluop = 4'b0100; // ==
+                	stall_FETCH = (R_EX == 32'b0)? 1'b1: 1'b0;
+                	pcsrc_EX = (R_EX == 32'b0)? 2'b11: 2'b00;
+                    end
+                    3'b001: begin
+                	aluop = 4'b0100; // !=
+                	stall_FETCH = (R_EX != 32'b0)? 1'b1: 1'b0;
+                	pcsrc_EX = (R_EX != 32'b0)? 2'b11: 2'b00;
+                    end
+                    3'b100: begin
+                	aluop = 4'b1100; // < (signed)
+                	stall_FETCH = (R_EX == 32'b1)? 1'b1: 1'b0;
+                	pcsrc_EX = (R_EX == 32'b1)? 2'b11: 2'b00;
+                    end
+                    3'b101: begin
+                	aluop = 4'b1100; // >= (signed)
+                	stall_FETCH = (R_EX == 32'b0)? 1'b1: 1'b0;
+                	pcsrc_EX = (R_EX == 32'b0)? 2'b11: 2'b00;
+                    end
+                    3'b110: begin
+                	aluop = 4'b1101; // < (unsigned)
+                	stall_FETCH = (R_EX == 32'b1)? 1'b1: 1'b0;
+                	pcsrc_EX = (R_EX == 32'b1)? 2'b11: 2'b00;
+                    end
+                    3'b111: begin
+                	aluop = 4'b1101; // >= (unsigned)
+                	stall_FETCH = (R_EX == 32'b0)? 1'b1: 1'b0;
+                	pcsrc_EX = (R_EX == 32'b0)? 2'b11: 2'b00;
+                    end
+                endcase
 	    end
             default: begin
                 aluop    = 4'b0000;
