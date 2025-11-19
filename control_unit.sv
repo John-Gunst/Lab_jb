@@ -47,6 +47,7 @@ module control_unit (
         regwrite = 1'b0;
         gpio_we  = 1'b0;
 	stall_FETCH = 1'b0;
+	pcsrc_EX = 2'b00;
 	
         case (opcode)
             // ---------------- R-type (0110011)
@@ -87,12 +88,17 @@ module control_unit (
                 alusrc   = 1'b1;
                 gpio_we  = 1'b0;
                 case (funct3)
-                    3'b000: aluop = 4'b0100; // BEQ, sub
-                    3'b111: aluop = 4'b1101; // BGEU, sltu
-                    3'b110: aluop = 4'b1101; // BLTU, sltu
-                    3'b100: aluop = 4'b1100; // BLT, slt
-                    3'b001: aluop = 4'b0100; // BNE, sub
-                    3'b101: aluop = 4'b1100; // BGE, slt
+                    3'b000: aluop = 4'b0011; // addi
+                    3'b111: aluop = 4'b0000; // andi
+                    3'b110: aluop = 4'b0001; // ori
+                    3'b100: aluop = 4'b0010; // xori
+                    3'b001: aluop = 4'b1000; // slli
+                    3'b101: aluop = (funct7 == 7'b0100000) ? 4'b1010 : 4'b1001; // srai/srli
+                    3'b000: begin 
+                    	  stall_FETCH = 1'b1;
+                          pcsrc_EX = 2'b01;
+                          regsel = 2'b11;
+                    end
                     default: aluop = 4'b0011;
                 endcase
             end
@@ -126,16 +132,17 @@ module control_unit (
             	alusrc = 1'b1;
             	aluop = 4'b0011;
             	regwrite = stall_EX? 1'b0: 1'b1;
-            	regsel = 2'b10;
+            	regsel = 2'b11;
             	gpio_we = 1'b0;
             	stall_FETCH = 1'b1;
+            	pcsrc_EX  = 2'b10;
             end
             //B-Type
             7'h63: begin
 		alusrc = 1'b0;
-		regsel = 2'b00;
 		regwrite = 1'b0;
 		gpio_we = 1'b0;
+		regsel = 2'b11;
             	case (funct3)
             	    3'b000: begin
                 	aluop = 4'b0100; // ==

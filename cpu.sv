@@ -29,12 +29,20 @@ initial begin
 // ==========================================================
 logic [31:0] instr_F;      // instruction fetched (registered)
 logic [11:0] pc, pc_next;  // 12 bits for 4K word addresses
-logic [11:0] branch_addr, jal_addr, jalr_addr;
+logic [31:0] branch_addr, jal_addr, jalr_addr;
+logic [31:0] jalr_offset;
 
 // ==========================================================
 // Synchronous PC Update + Fetch
 // ==========================================================
 logic halt_pending;
+assign branch_offset_EX =
+{instruction_EX[31], instruction_EX[7], instruction_EX[30:25], instruction_EX[11:8], 1'b0};
+assign branch_addr_EX = PC_EX + {branch_offset_EX[12],branch_offset_EX[12:2]};
+assign jal_offset_EX = {instruction_EX[31],instruction_EX[19:12],instruction_EX[20],instruction_EX[30:21],1'b0};
+assign jal_addr_EX = PC_EX + jal_offset_EX[13:2];
+assign jalr_offset = instruction_EX[31:20];
+assign jalr_addr = readdata1_EX[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
 
 always_ff @(posedge clk) begin
     if (rst) begin
@@ -60,11 +68,19 @@ always_ff @(posedge clk) begin
         // Update PC
         //TODO add pcsrc case
         pc_next = pc + 12'd1;
-        pc <= pc_next;
     end
     else begin
     	//stall
     end
+end
+
+always_comb begin
+   case(pcsrc_EX):
+      2'b00: pc = pc_next;
+      2'b01: pc = jalr_addr;
+      2'b10: pc = jal_addr_EX;
+      2'b11: pc = branch_addr_EX;
+   endcase
 end
 
     // ------------------------------------------------------------------
@@ -87,6 +103,8 @@ end
 
     control_unit my_control_unit(
 	    .instr   (instr_F),
+	    .R_EX    (R_EX),
+	    .pcsrc_EX
 	    .aluop   (aluop),
 	    .alusrc  (alusrc),
 	    .regsel  (regsel),
