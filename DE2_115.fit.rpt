@@ -1,5 +1,5 @@
 Fitter report for DE2_115
-Fri Nov 14 16:46:12 2025
+Wed Nov 19 17:21:42 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -59,7 +59,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                       ;
 +------------------------------------+-------------------------------------------------+
-; Fitter Status                      ; Successful - Fri Nov 14 16:46:12 2025           ;
+; Fitter Status                      ; Successful - Wed Nov 19 17:21:42 2025           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; DE2_115                                         ;
 ; Top-level Entity Name              ; top                                             ;
@@ -1780,7 +1780,7 @@ Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:00
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 25 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
     Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVTTL at Y2 File: /acct/jgunst/lab_jb/top.sv Line: 9
@@ -1810,10 +1810,10 @@ Warning (169177): 25 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 
     Info (169178): Pin SW[17] uses I/O standard 3.3-V LVTTL at Y23 File: /acct/jgunst/lab_jb/top.sv Line: 17
 Info (144001): Generated suppressed messages file /acct/jgunst/lab_jb/DE2_115.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 32 warnings
-    Info: Peak virtual memory: 1970 megabytes
-    Info: Processing ended: Fri Nov 14 16:46:13 2025
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:09
+    Info: Peak virtual memory: 1961 megabytes
+    Info: Processing ended: Wed Nov 19 17:21:42 2025
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:08
 
 
 +----------------------------+

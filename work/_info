@@ -1,6 +1,7 @@
 m255
 K4
 z2
+!s11f MIXED_VERSIONS
 13
 !s112 1.1
 !i10d 8192
@@ -8,128 +9,213 @@ z2
 !i10f 100
 cModel Technology
 Z0 d/acct/jgunst/lab_jb
+T_opt
+!s110 1763590322
+VU?H45Vch1DE8LESI6:i0z0
+04 3 4 work cpu fast 0
+=1-000ae431a4f1-691e40b2-194f-639f8
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2020.1;71
 valu
-Z1 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z2 !s110 1762379144
+Z2 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z3 !s110 1763590313
 !i10b 1
 !s100 Fz;21dl2PMZ6MFeGeLCUd1
-Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
-Idkda=b6UUa[8UodDQhYLI2
-Z4 VDg1SIo80bB@j0V0VzS_@n1
+Z4 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I_>VK_mXFAU1nm2_==3f@@3
+Z5 VDg1SIo80bB@j0V0VzS_@n1
 S1
 R0
-Z5 w1695668372
-8alu.sv
-Falu.sv
-!i122 9
+Z6 w1695668372
+8/acct/jgunst/lab_jb/alu.sv
+F/acct/jgunst/lab_jb/alu.sv
+!i122 122
 L0 7 48
-Z6 OL;L;2020.1;71
+Z7 OL;L;2020.1;71
 r1
 !s85 0
 31
-Z7 !s108 1762379144.000000
-!s107 top.sv|simtop.sv|regfile.sv|instructionDecoder.sv|hexdriver.sv|cpu.sv|control_unit.sv|alu.sv|
-Z8 !s90 -pedanticerrors|-lint|-hazards|-source|-stats=all|alu.sv|control_unit.sv|cpu.sv|hexdriver.sv|instructionDecoder.sv|regfile.sv|simtop.sv|top.sv|
+Z8 !s108 1763590313.000000
+!s107 /acct/jgunst/lab_jb/alu.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/alu.sv|
 !i113 0
-Z9 o-pedanticerrors -lint -hazards -source -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-Z10 tCvgOpt 0
-vcpu
+Z9 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R1
+vcontrol_unit
 R2
-!i10b 1
-!s100 KU@[A54?aBVacVIOW:aC]1
 R3
-IKZg4<_LX>g6H]]_ZLQ3Nb1
+!i10b 1
+!s100 ;o3O>`MG?P4VcHb^AiPIA3
 R4
+I^i?K]W94f^^oaT?O7m>_I2
+R5
 S1
 R0
-w1761340800
-8cpu.sv
-Fcpu.sv
-!i122 9
-L0 2 313
-R6
+w1763589751
+8/acct/jgunst/lab_jb/control_unit.sv
+F/acct/jgunst/lab_jb/control_unit.sv
+!i122 121
+L0 1 183
+R7
 r1
 !s85 0
 31
-R7
-Z11 !s107 top.sv|simtop.sv|regfile.sv|instructionDecoder.sv|hexdriver.sv|cpu.sv|control_unit.sv|alu.sv|
 R8
+!s107 /acct/jgunst/lab_jb/control_unit.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/control_unit.sv|
 !i113 0
 R9
-R10
-vhexdriver
 R1
+vcpu
 R2
+R3
+!i10b 1
+!s100 <;7Pgo2K]M:IC4]VGBDKe2
+R4
+IoP:`6`>_OOJ]P46AHEMQe3
+R5
+S1
+R0
+w1763590300
+8/acct/jgunst/lab_jb/cpu.sv
+F/acct/jgunst/lab_jb/cpu.sv
+!i122 120
+L0 2 300
+R7
+r1
+!s85 0
+31
+R8
+!s107 /acct/jgunst/lab_jb/cpu.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/cpu.sv|
+!i113 0
+R9
+R1
+vhexdriver
+R2
+R3
 !i10b 1
 !s100 d36O8hkV7l4JDX[O>Zn<]2
-R3
-IY40zTJ?>QmS4mIlMD32>@0
 R4
+I?8@Yj7]RJz5MnGHd90]Rf0
+R5
 S1
 R0
-R5
-8hexdriver.sv
-Fhexdriver.sv
-!i122 9
-L0 1 5
 R6
+8/acct/jgunst/lab_jb/hexdriver.sv
+F/acct/jgunst/lab_jb/hexdriver.sv
+!i122 127
+L0 1 5
+R7
 r1
 !s85 0
 31
-R7
-R11
 R8
+!s107 /acct/jgunst/lab_jb/hexdriver.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/hexdriver.sv|
 !i113 0
 R9
-R10
-vsimtop
 R1
+vinstructionDecoder
 R2
+R3
+!i10b 1
+!s100 <S8jo^S@`bXf2kI^N`0^>0
+R4
+Ijc6B=1D6MX2V_T7oBB?fI2
+R5
+S1
+R0
+w1763589866
+8/acct/jgunst/lab_jb/instructionDecoder.sv
+F/acct/jgunst/lab_jb/instructionDecoder.sv
+!i122 126
+L0 1 19
+R7
+r1
+!s85 0
+31
+R8
+!s107 /acct/jgunst/lab_jb/instructionDecoder.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/instructionDecoder.sv|
+!i113 0
+R9
+R1
+ninstruction@decoder
+vregfile
+R2
+R3
+!i10b 1
+!s100 ?^aWIU5R`P?QnPdE@RGJe0
+R4
+IN:YlS1<nb^ghZk[7^Filg2
+R5
+S1
+R0
+w1763589477
+8/acct/jgunst/lab_jb/regfile.sv
+F/acct/jgunst/lab_jb/regfile.sv
+!i122 125
+L0 3 38
+R7
+r1
+!s85 0
+31
+R8
+!s107 /acct/jgunst/lab_jb/regfile.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/regfile.sv|
+!i113 0
+R9
+R1
+vsimtop
+R2
+R3
 !i10b 1
 !s100 N^caAR:fb<mG_1acR]Iz52
-R3
-I?i0QF1dT`e@Da0zl;A0MS2
 R4
+IhzJTcKTTOh@9_3]nd7W2>1
+R5
 S1
 R0
 w1762378716
-8simtop.sv
-Fsimtop.sv
-!i122 9
+8/acct/jgunst/lab_jb/simtop.sv
+F/acct/jgunst/lab_jb/simtop.sv
+!i122 123
 L0 6 68
-R6
+R7
 r1
 !s85 0
 31
-R7
-R11
 R8
+!s107 /acct/jgunst/lab_jb/simtop.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/simtop.sv|
 !i113 0
 R9
-R10
-vtop
 R1
+vtop
 R2
-!i10b 1
-!s100 @7`oKbGV5=a5[A_A?4nD20
 R3
-IZIB9Gi@`P[>G`WeJDdBGO2
+!i10b 1
+!s100 2hbZM]S0^R0Vm74VO0;b_1
 R4
+IW3`QCjU@i^oM`f41medfN3
+R5
 S1
 R0
-w1695668373
-8top.sv
-Ftop.sv
-!i122 9
-L0 6 91
-R6
+w1763155951
+8/acct/jgunst/lab_jb/top.sv
+F/acct/jgunst/lab_jb/top.sv
+!i122 124
+L0 6 69
+R7
 r1
 !s85 0
 31
-R7
-R11
 R8
+!s107 /acct/jgunst/lab_jb/top.sv|
+!s90 -F=/acct/jgunst/lab_jb/vlog.opt|-F=|-reportprogress|300|-work|work|/acct/jgunst/lab_jb/top.sv|
 !i113 0
 R9
-R10
+R1

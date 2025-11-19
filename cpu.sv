@@ -29,8 +29,14 @@ initial begin
 // ==========================================================
 logic [31:0] instr_F;      // instruction fetched (registered)
 logic [11:0] pc, pc_next;  // 12 bits for 4K word addresses
-logic [31:0] branch_addr, jal_addr, jalr_addr;
-logic [31:0] jalr_offset;
+logic [31:0] branch_addr, branch_offset_EX,branch_addr_EX,jal_addr, jalr_addr;
+logic [31:0] jalr_offset,jal_offset_EX;
+logic [1:0] pcsrc_EX;
+logic [11:0] PC_EX;
+logic [31:0] instruction_EX;
+logic [31:0] readdata1;
+logic stall_FETCH;
+logic stall_EX;
 
 // ==========================================================
 // Synchronous PC Update + Fetch
@@ -42,13 +48,53 @@ assign branch_addr_EX = PC_EX + {branch_offset_EX[12],branch_offset_EX[12:2]};
 assign jal_offset_EX = {instruction_EX[31],instruction_EX[19:12],instruction_EX[20],instruction_EX[30:21],1'b0};
 assign jal_addr_EX = PC_EX + jal_offset_EX[13:2];
 assign jalr_offset = instruction_EX[31:20];
-assign jalr_addr = readdata1_EX[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
+assign jalr_addr = readdata1[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
 
-always_ff @(posedge clk) begin
+
+
+    // ------------------------------------------------------------------
+    // Control unit (combinational)
+    // ------------------------------------------------------------------
+    // Control signals
+    logic [3:0]  aluop;
+    logic        alusrc;
+    logic [1:0]  regsel;
+    logic        regwrite;
+    logic        gpio_we;
+    //Fields to be passed to registers
+    logic [4:0]  rd;
+    logic [4:0]  rs1;
+    logic [4:0]  rs2;
+    logic [11:0] imm_i;
+    logic [19:0] imm_u; 
+    logic [6:0] opcode;
+    logic [31:0] R_EX;
+
+    control_unit my_control_unit(
+	    .instr   (instr_F),
+	    .R_EX    (R_EX),
+	    .pcsrc_EX (pcsrc_EX),
+	    .aluop   (aluop),
+	    .alusrc  (alusrc),
+	    .regsel  (regsel),
+	    .regwrite(regwrite),
+	    .gpio_we (gpio_we),
+	    .rd      (rd),
+	    .rs1     (rs1),
+	    .rs2     (rs2),
+	    .imm_i   (imm_i),
+	    .imm_u   (imm_u),
+	    .opcode  (opcode),
+	    .stall_EX(stall_EX),
+	    .stall_FETCH(stall_FETCH)
+    );
+    
+    always_ff @(posedge clk) begin
     if (rst) begin
         pc <= 12'd0;
         instr_F <= 32'd0;
         halt_pending <= 1'b0;
+        //pcsrc_EX<=2'b00;
         `ifndef SYNTHESIS
         `ifndef ALTERA_RESERVED_QIS
             $display("[%0t] CPU RESET asserted: pc <= 0", $time);
@@ -68,57 +114,19 @@ always_ff @(posedge clk) begin
         // Update PC
         //TODO add pcsrc case
         pc_next = pc + 12'd1;
+        case(pcsrc_EX)
+	     2'b00: pc <= pc_next;
+	     2'b01: pc <= jalr_addr;
+	     2'b10: pc <= jal_addr_EX;
+	     2'b11: pc <= branch_addr_EX;
+	endcase
     end
     else begin
     	//stall
     end
 end
 
-always_comb begin
-   case(pcsrc_EX):
-      2'b00: pc = pc_next;
-      2'b01: pc = jalr_addr;
-      2'b10: pc = jal_addr_EX;
-      2'b11: pc = branch_addr_EX;
-   endcase
-end
 
-    // ------------------------------------------------------------------
-    // Control unit (combinational)
-    // ------------------------------------------------------------------
-    // Control signals
-    logic [3:0]  aluop;
-    logic        alusrc;
-    logic [1:0]  regsel;
-    logic        regwrite;
-    logic        gpio_we;
-    //Fields to be passed to registers
-    logic [4:0]  rd;
-    logic [4:0]  rs1;
-    logic [4:0]  rs2;
-    logic [11:0] imm_i;
-    logic [19:0] imm_u; 
-    logic [6:0] opcode;
-
-
-    control_unit my_control_unit(
-	    .instr   (instr_F),
-	    .R_EX    (R_EX),
-	    .pcsrc_EX
-	    .aluop   (aluop),
-	    .alusrc  (alusrc),
-	    .regsel  (regsel),
-	    .regwrite(regwrite),
-	    .gpio_we (gpio_we),
-	    .rd      (rd),
-	    .rs1     (rs1),
-	    .rs2     (rs2),
-	    .imm_i   (imm_i),
-	    .imm_u   (imm_u),
-	    .opcode  (opcode),
-	    .stall_EX(stall_EX),
-	    .stall_FETCH(stall_FETCH)
-    );
 
     // ------------------------------------------------------------------
     // Register file signals (declare early)
@@ -161,12 +169,10 @@ end
     logic [19:0] ex_imm_u_q;
     logic [31:0] ex_csr_read_q;
     logic [31:0] ex_rs1_val_q;
-    logic [1:0] pcsrc_EX;
-    logic [11:0] PC_EX;
      //hazard detection registers
-    logic stall_EX;
+    
     logic isload_EX;
-    logic stall_FETCH;
+
  
   
     always_ff @(posedge clk or posedge rst) begin
@@ -175,8 +181,9 @@ end
             ex_gpio_we_q    <= 1'b0;
             ex_csr_read_q  <= 32'd0;
             ex_imm_u_q     <= 20'd0;
-            pcsrc_EX         <= 1'b0;
+            //pcsrc_EX         <= 1'b0;
             PC_EX          <= 12'b0;
+            instruction_EX <= 32'b0;
       
         end else begin
              `ifndef SYNTHESIS
@@ -184,12 +191,13 @@ end
 	    $display("[%0t] DBG: pc=%0h instr_F=0x%08h ctrl_rd=%0d rd_field=%0d ex_rd_q=%0d alu_R=0x%08h",
 		     $time, pc, instr_F, rd, instr_F[11:7], ex_rd_q, alu_R);
 	    `endif
-            stall_EX <= stall_FETCH
+            stall_EX <= stall_FETCH;
             ex_rd_q        <= rd;
             ex_csr_read_q  <= rf_readdata1;
             ex_gpio_we_q    <= gpio_we;
             ex_imm_u_q     <= imm_u;
             PC_EX          <= pc;
+            instruction_EX <= instr_F;
         end
     end
         assign ex_rs1_val_q = rf_readdata1;

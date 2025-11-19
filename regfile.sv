@@ -13,8 +13,8 @@ module regfile (
 
 /**** outputs ****************************************************************/
 
-	output [31:0] readdata1,	/* read data 1 */
-	output [31:0] readdata2		/* read data 2 */
+	output logic [31:0] readdata1,	/* read data 1 */
+	output logic [31:0] readdata2		/* read data 2 */
 );
 
 logic [31:0] mem[31:0];

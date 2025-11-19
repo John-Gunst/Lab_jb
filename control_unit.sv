@@ -1,7 +1,7 @@
 module control_unit (
     input  logic [31:0] instr,
     input logic stall_EX,
-    input logic [31,0] R_EX,
+    input logic [31:0] R_EX,
     output logic [3:0]  aluop,
     output logic        alusrc,
     output logic [1:0]  regsel,
@@ -14,7 +14,7 @@ module control_unit (
     output logic [11:0] imm_i,
     output logic [19:0] imm_u,
     output logic [6:0]  opcode,
-    output logic [4:0]  shamt,
+    output logic [1:0] pcsrc_EX,
     output logic stall_FETCH
 );
 
@@ -30,12 +30,7 @@ module control_unit (
         .funct3(funct3),
         .funct7(funct7),
         .rs1(rs1),
-        .rs2(rs2),
-        .imm_i(imm_i),
-        .imm_u(imm_u),
-        .shamt(shamt),
-        .imm_j_extended(imm_j_extended),
-        .imm_b_extended(imm_b_extended)
+        .rs2(rs2)
     );
 
     // === Main combinational control logic ===
