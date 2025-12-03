@@ -1,5 +1,5 @@
 Fitter report for DE2_115
-Wed Nov 19 17:21:42 2025
+Wed Dec  3 17:01:15 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -59,7 +59,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                       ;
 +------------------------------------+-------------------------------------------------+
-; Fitter Status                      ; Successful - Wed Nov 19 17:21:42 2025           ;
+; Fitter Status                      ; Successful - Wed Dec  3 17:01:14 2025           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; DE2_115                                         ;
 ; Top-level Entity Name              ; top                                             ;
@@ -1780,40 +1780,40 @@ Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:00
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 25 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
-    Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVTTL at Y2 File: /acct/jgunst/lab_jb/top.sv Line: 9
-    Info (169178): Pin CLOCK2_50 uses I/O standard 3.3-V LVTTL at AG14 File: /acct/jgunst/lab_jb/top.sv Line: 10
-    Info (169178): Pin CLOCK3_50 uses I/O standard 3.3-V LVTTL at AG15 File: /acct/jgunst/lab_jb/top.sv Line: 11
-    Info (169178): Pin KEY[0] uses I/O standard 3.3-V LVTTL at M23 File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Info (169178): Pin KEY[1] uses I/O standard 3.3-V LVTTL at M21 File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Info (169178): Pin KEY[2] uses I/O standard 3.3-V LVTTL at N21 File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Info (169178): Pin KEY[3] uses I/O standard 3.3-V LVTTL at R24 File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Info (169178): Pin SW[0] uses I/O standard 3.3-V LVTTL at AB28 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[1] uses I/O standard 3.3-V LVTTL at AC28 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[2] uses I/O standard 3.3-V LVTTL at AC27 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[3] uses I/O standard 3.3-V LVTTL at AD27 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[4] uses I/O standard 3.3-V LVTTL at AB27 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[5] uses I/O standard 3.3-V LVTTL at AC26 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[6] uses I/O standard 3.3-V LVTTL at AD26 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[7] uses I/O standard 3.3-V LVTTL at AB26 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[8] uses I/O standard 3.3-V LVTTL at AC25 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[9] uses I/O standard 3.3-V LVTTL at AB25 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[10] uses I/O standard 3.3-V LVTTL at AC24 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[11] uses I/O standard 3.3-V LVTTL at AB24 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[12] uses I/O standard 3.3-V LVTTL at AB23 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[13] uses I/O standard 3.3-V LVTTL at AA24 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[14] uses I/O standard 3.3-V LVTTL at AA23 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[15] uses I/O standard 3.3-V LVTTL at AA22 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[16] uses I/O standard 3.3-V LVTTL at Y24 File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Info (169178): Pin SW[17] uses I/O standard 3.3-V LVTTL at Y23 File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Info (169178): Pin CLOCK_50 uses I/O standard 3.3-V LVTTL at Y2 File: /acct/jgunst/lab_jb/top.sv Line: 5
+    Info (169178): Pin CLOCK2_50 uses I/O standard 3.3-V LVTTL at AG14 File: /acct/jgunst/lab_jb/top.sv Line: 6
+    Info (169178): Pin CLOCK3_50 uses I/O standard 3.3-V LVTTL at AG15 File: /acct/jgunst/lab_jb/top.sv Line: 7
+    Info (169178): Pin KEY[0] uses I/O standard 3.3-V LVTTL at M23 File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Info (169178): Pin KEY[1] uses I/O standard 3.3-V LVTTL at M21 File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Info (169178): Pin KEY[2] uses I/O standard 3.3-V LVTTL at N21 File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Info (169178): Pin KEY[3] uses I/O standard 3.3-V LVTTL at R24 File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Info (169178): Pin SW[0] uses I/O standard 3.3-V LVTTL at AB28 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[1] uses I/O standard 3.3-V LVTTL at AC28 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[2] uses I/O standard 3.3-V LVTTL at AC27 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[3] uses I/O standard 3.3-V LVTTL at AD27 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[4] uses I/O standard 3.3-V LVTTL at AB27 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[5] uses I/O standard 3.3-V LVTTL at AC26 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[6] uses I/O standard 3.3-V LVTTL at AD26 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[7] uses I/O standard 3.3-V LVTTL at AB26 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[8] uses I/O standard 3.3-V LVTTL at AC25 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[9] uses I/O standard 3.3-V LVTTL at AB25 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[10] uses I/O standard 3.3-V LVTTL at AC24 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[11] uses I/O standard 3.3-V LVTTL at AB24 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[12] uses I/O standard 3.3-V LVTTL at AB23 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[13] uses I/O standard 3.3-V LVTTL at AA24 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[14] uses I/O standard 3.3-V LVTTL at AA23 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[15] uses I/O standard 3.3-V LVTTL at AA22 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[16] uses I/O standard 3.3-V LVTTL at Y24 File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Info (169178): Pin SW[17] uses I/O standard 3.3-V LVTTL at Y23 File: /acct/jgunst/lab_jb/top.sv Line: 13
 Info (144001): Generated suppressed messages file /acct/jgunst/lab_jb/DE2_115.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 32 warnings
-    Info: Peak virtual memory: 1961 megabytes
-    Info: Processing ended: Wed Nov 19 17:21:42 2025
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:08
+    Info: Peak virtual memory: 1980 megabytes
+    Info: Processing ended: Wed Dec  3 17:01:15 2025
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:09
 
 
 +----------------------------+

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE2_115
-Wed Nov 19 17:21:35 2025
+Wed Dec  3 17:01:07 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -45,7 +45,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Nov 19 17:21:35 2025           ;
+; Analysis & Synthesis Status        ; Successful - Wed Dec  3 17:01:07 2025           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; DE2_115                                         ;
 ; Top-level Entity Name              ; top                                             ;
@@ -284,19 +284,19 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Wed Nov 19 17:21:25 2025
+    Info: Processing started: Wed Dec  3 17:00:57 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE2_115 -c DE2_115
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file top.sv
-    Info (12023): Found entity 1: top File: /acct/jgunst/lab_jb/top.sv Line: 6
+    Info (12023): Found entity 1: top File: /acct/jgunst/lab_jb/top.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file hexdriver.sv
     Info (12023): Found entity 1: hexdriver File: /acct/jgunst/lab_jb/hexdriver.sv Line: 1
 Info (12127): Elaborating entity "top" for the top level hierarchy
 Warning (12125): Using design file cpu.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
     Info (12023): Found entity 1: cpu File: /acct/jgunst/lab_jb/cpu.sv Line: 2
 Warning (10236): Verilog HDL Implicit Net warning at cpu.sv(49): created implicit net for "jal_addr_EX" File: /acct/jgunst/lab_jb/cpu.sv Line: 49
-Info (12128): Elaborating entity "cpu" for hierarchy "cpu:u_cpu" File: /acct/jgunst/lab_jb/top.sv Line: 59
+Info (12128): Elaborating entity "cpu" for hierarchy "cpu:u_cpu" File: /acct/jgunst/lab_jb/top.sv Line: 55
 Warning (10858): Verilog HDL warning at cpu.sv(37): object readdata1 used but never assigned File: /acct/jgunst/lab_jb/cpu.sv Line: 37
 Warning (10036): Verilog HDL or VHDL warning at cpu.sv(44): object "halt_pending" assigned a value but never read File: /acct/jgunst/lab_jb/cpu.sv Line: 44
 Warning (10036): Verilog HDL or VHDL warning at cpu.sv(136): object "rf_waddr" assigned a value but never read File: /acct/jgunst/lab_jb/cpu.sv Line: 136
@@ -331,100 +331,100 @@ Warning (12125): Using design file alu.sv, which is not specified as a design fi
     Info (12023): Found entity 1: alu File: /acct/jgunst/lab_jb/alu.sv Line: 7
 Info (12128): Elaborating entity "alu" for hierarchy "cpu:u_cpu|alu:u_alu" File: /acct/jgunst/lab_jb/cpu.sv Line: 242
 Warning (10036): Verilog HDL or VHDL warning at alu.sv(15): object "mullu" assigned a value but never read File: /acct/jgunst/lab_jb/alu.sv Line: 15
-Info (12128): Elaborating entity "hexdriver" for hierarchy "hexdriver:hd0" File: /acct/jgunst/lab_jb/top.sv Line: 63
+Info (12128): Elaborating entity "hexdriver" for hierarchy "hexdriver:hd0" File: /acct/jgunst/lab_jb/top.sv Line: 59
 Warning (10034): Output port "HEX" at hexdriver.sv(1) has no driver File: /acct/jgunst/lab_jb/hexdriver.sv Line: 1
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "HEX0[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
-    Warning (13410): Pin "HEX0[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
-    Warning (13410): Pin "HEX0[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
-    Warning (13410): Pin "HEX0[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
-    Warning (13410): Pin "HEX0[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
-    Warning (13410): Pin "HEX0[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
-    Warning (13410): Pin "HEX0[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
-    Warning (13410): Pin "HEX1[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
-    Warning (13410): Pin "HEX1[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
-    Warning (13410): Pin "HEX1[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
-    Warning (13410): Pin "HEX1[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
-    Warning (13410): Pin "HEX1[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
-    Warning (13410): Pin "HEX1[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
-    Warning (13410): Pin "HEX1[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
-    Warning (13410): Pin "HEX2[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
-    Warning (13410): Pin "HEX2[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
-    Warning (13410): Pin "HEX2[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
-    Warning (13410): Pin "HEX2[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
-    Warning (13410): Pin "HEX2[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
-    Warning (13410): Pin "HEX2[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
-    Warning (13410): Pin "HEX2[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
-    Warning (13410): Pin "HEX3[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 23
-    Warning (13410): Pin "HEX3[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 23
-    Warning (13410): Pin "HEX3[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 23
-    Warning (13410): Pin "HEX3[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 23
-    Warning (13410): Pin "HEX3[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 23
-    Warning (13410): Pin "HEX3[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 23
-    Warning (13410): Pin "HEX3[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 23
-    Warning (13410): Pin "HEX4[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
-    Warning (13410): Pin "HEX4[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
-    Warning (13410): Pin "HEX4[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
-    Warning (13410): Pin "HEX4[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
-    Warning (13410): Pin "HEX4[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
-    Warning (13410): Pin "HEX4[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
-    Warning (13410): Pin "HEX4[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
-    Warning (13410): Pin "HEX5[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 25
-    Warning (13410): Pin "HEX5[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 25
-    Warning (13410): Pin "HEX5[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 25
-    Warning (13410): Pin "HEX5[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 25
-    Warning (13410): Pin "HEX5[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 25
-    Warning (13410): Pin "HEX5[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 25
-    Warning (13410): Pin "HEX5[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 25
-    Warning (13410): Pin "HEX6[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 26
-    Warning (13410): Pin "HEX6[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 26
-    Warning (13410): Pin "HEX6[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 26
-    Warning (13410): Pin "HEX6[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 26
-    Warning (13410): Pin "HEX6[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 26
-    Warning (13410): Pin "HEX6[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 26
-    Warning (13410): Pin "HEX6[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 26
-    Warning (13410): Pin "HEX7[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 28
-    Warning (13410): Pin "HEX7[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 28
-    Warning (13410): Pin "HEX7[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 28
-    Warning (13410): Pin "HEX7[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 28
-    Warning (13410): Pin "HEX7[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 28
-    Warning (13410): Pin "HEX7[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 28
-    Warning (13410): Pin "HEX7[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 28
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 16
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 16
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 16
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 16
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 16
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 16
+    Warning (13410): Pin "HEX0[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 16
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 18
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 18
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 18
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 18
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 18
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 18
+    Warning (13410): Pin "HEX2[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 18
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 19
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 19
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 19
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 19
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 19
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 19
+    Warning (13410): Pin "HEX3[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 19
+    Warning (13410): Pin "HEX4[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
+    Warning (13410): Pin "HEX4[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
+    Warning (13410): Pin "HEX4[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
+    Warning (13410): Pin "HEX4[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
+    Warning (13410): Pin "HEX4[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
+    Warning (13410): Pin "HEX4[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
+    Warning (13410): Pin "HEX4[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 20
+    Warning (13410): Pin "HEX5[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
+    Warning (13410): Pin "HEX5[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
+    Warning (13410): Pin "HEX5[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
+    Warning (13410): Pin "HEX5[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
+    Warning (13410): Pin "HEX5[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
+    Warning (13410): Pin "HEX5[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 21
+    Warning (13410): Pin "HEX6[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
+    Warning (13410): Pin "HEX6[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
+    Warning (13410): Pin "HEX6[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
+    Warning (13410): Pin "HEX6[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
+    Warning (13410): Pin "HEX6[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
+    Warning (13410): Pin "HEX6[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
+    Warning (13410): Pin "HEX6[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 22
+    Warning (13410): Pin "HEX7[0]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
+    Warning (13410): Pin "HEX7[1]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
+    Warning (13410): Pin "HEX7[2]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
+    Warning (13410): Pin "HEX7[3]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
+    Warning (13410): Pin "HEX7[4]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
+    Warning (13410): Pin "HEX7[5]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
+    Warning (13410): Pin "HEX7[6]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 24
 Info (144001): Generated suppressed messages file /acct/jgunst/lab_jb/DE2_115.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 25 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "CLOCK_50" File: /acct/jgunst/lab_jb/top.sv Line: 9
-    Warning (15610): No output dependent on input pin "CLOCK2_50" File: /acct/jgunst/lab_jb/top.sv Line: 10
-    Warning (15610): No output dependent on input pin "CLOCK3_50" File: /acct/jgunst/lab_jb/top.sv Line: 11
-    Warning (15610): No output dependent on input pin "KEY[0]" File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Warning (15610): No output dependent on input pin "KEY[1]" File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Warning (15610): No output dependent on input pin "KEY[2]" File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Warning (15610): No output dependent on input pin "KEY[3]" File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Warning (15610): No output dependent on input pin "SW[0]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[1]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[2]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[3]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[4]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[5]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[6]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[7]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[8]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[9]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[10]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[11]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[12]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[13]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[14]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[15]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[16]" File: /acct/jgunst/lab_jb/top.sv Line: 17
-    Warning (15610): No output dependent on input pin "SW[17]" File: /acct/jgunst/lab_jb/top.sv Line: 17
+    Warning (15610): No output dependent on input pin "CLOCK_50" File: /acct/jgunst/lab_jb/top.sv Line: 5
+    Warning (15610): No output dependent on input pin "CLOCK2_50" File: /acct/jgunst/lab_jb/top.sv Line: 6
+    Warning (15610): No output dependent on input pin "CLOCK3_50" File: /acct/jgunst/lab_jb/top.sv Line: 7
+    Warning (15610): No output dependent on input pin "KEY[0]" File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Warning (15610): No output dependent on input pin "KEY[1]" File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Warning (15610): No output dependent on input pin "KEY[2]" File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Warning (15610): No output dependent on input pin "KEY[3]" File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Warning (15610): No output dependent on input pin "SW[0]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[1]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[2]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[3]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[4]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[5]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[6]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[7]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[8]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[9]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[10]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[11]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[12]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[13]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[14]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[15]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[16]" File: /acct/jgunst/lab_jb/top.sv Line: 13
+    Warning (15610): No output dependent on input pin "SW[17]" File: /acct/jgunst/lab_jb/top.sv Line: 13
 Info (21057): Implemented 81 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 25 input pins
     Info (21059): Implemented 56 output pins
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 113 warnings
-    Info: Peak virtual memory: 920 megabytes
-    Info: Processing ended: Wed Nov 19 17:21:35 2025
+    Info: Peak virtual memory: 918 megabytes
+    Info: Processing ended: Wed Dec  3 17:01:07 2025
     Info: Elapsed time: 00:00:10
     Info: Total CPU time (on all processors): 00:00:17
 

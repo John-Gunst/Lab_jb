@@ -8,7 +8,7 @@ module cpu (
 );
 
  logic [31:0] instmem [0:4095];
-
+/**
 // Initialize instruction memory
 initial begin
     integer i;
@@ -24,6 +24,8 @@ initial begin
     `endif
     `endif
  end
+**/
+initial $readmemh ("instmem.dat",instmem);
 // ==========================================================
 // Program Counter + Fetch Register
 // ==========================================================
@@ -34,7 +36,7 @@ logic [31:0] jalr_offset,jal_offset_EX;
 logic [1:0] pcsrc_EX;
 logic [11:0] PC_EX;
 logic [31:0] instruction_EX;
-logic [31:0] readdata1;
+logic [31:0] rf_readdata1,rf_readdata2;
 logic stall_FETCH;
 logic stall_EX;
 
@@ -48,7 +50,7 @@ assign branch_addr_EX = PC_EX + {branch_offset_EX[12],branch_offset_EX[12:2]};
 assign jal_offset_EX = {instruction_EX[31],instruction_EX[19:12],instruction_EX[20],instruction_EX[30:21],1'b0};
 assign jal_addr_EX = PC_EX + jal_offset_EX[13:2];
 assign jalr_offset = instruction_EX[31:20];
-assign jalr_addr = readdata1[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
+assign jalr_addr = rf_readdata1[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
 
 
 
@@ -94,6 +96,7 @@ assign jalr_addr = readdata1[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
         pc <= 12'd0;
         instr_F <= 32'd0;
         halt_pending <= 1'b0;
+	pc_next<=12'd0;
         //pcsrc_EX<=2'b00;
         `ifndef SYNTHESIS
         `ifndef ALTERA_RESERVED_QIS
@@ -113,12 +116,13 @@ assign jalr_addr = readdata1[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
         `endif
         // Update PC
         //TODO add pcsrc case
-        pc_next = pc + 12'd1;
+    pc_next <= pc + 12'd1;
         case(pcsrc_EX)
 	     2'b00: pc <= pc_next;
 	     2'b01: pc <= jalr_addr;
 	     2'b10: pc <= jal_addr_EX;
 	     2'b11: pc <= branch_addr_EX;
+	
 	endcase
     end
     else begin
@@ -131,7 +135,7 @@ end
     // ------------------------------------------------------------------
     // Register file signals (declare early)
     // ------------------------------------------------------------------
-    logic [31:0] rf_readdata1, rf_readdata2;
+   
     logic rf_we;
     logic [4:0] rf_waddr;
     logic [31:0] rf_wdata;
