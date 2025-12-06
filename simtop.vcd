@@ -1,0 +1,19 @@
+$date
+	Sat Dec  6 16:30:24 2025
+$end
+$version
+	QuestaSim Version 2020.1
+$end
+$timescale
+	1ns
+$end
+
+$scope module simtop $end
+
+$scope module uut $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+$end

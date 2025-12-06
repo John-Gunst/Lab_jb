@@ -1,99 +1,65 @@
+//framos jgunst
 module simtop;
 
-   logic [31:0] instr;
-   logic stall_EX;
-   logic [31:0] R_EX;
-   logic [3:0]  aluop;
-   logic        alusrc;
-   logic [1:0]  regsel;
-   logic        regwrite;
-   logic        gpio_we;
-   logic [4:0]  rd;
-   logic [4:0]  rs1;
-   logic [4:0]  rs2;
-   logic [11:0] imm_i;
-   logic [19:0] imm_u;
-   logic [1:0] pcsrc_EX;
-   logic stall_FETCH;
-   
-   control_unit dut (
-        .instr(instr),
-        .stall_EX(stall_EX),
-        .R_EX(R_EX),
-        .aluop(aluop),
-        .alusrc(alusrc),
-        .regsel(regsel),
-        .regwrite(regwrite),
-        .gpio_we(gpio_we),
-        .rd(rd),
-    	.rs1(rs1),
-    	.rs2(rs2),
-    	.imm_i(imm_i),
-    	.imm_u(imm_u),
-    	.pcsrc_EX(pcsrc_EX),
-    	.stall_FETCH(stall_FETCH)
+    reg clk;
+    reg rst_n;
+    reg [31:0] tb_switches;
+    wire tb_gpio_we;
+    wire [31:0] tb_gpio_wdata;
+
+    // Instantiate cpu (matches your cpu header)
+    cpu uut (
+        .clk        (clk),
+        .rst_n      (rst_n),
+        .io0_in     (tb_switches),
+        .gpio_we    (tb_gpio_we),
+        .gpio_wdata (tb_gpio_wdata)
     );
-    
-    // Test vector memory
-    logic [31:0] instmem [0:255];    // instructions
-    integer num_tests = 14;
-    integer i;
 
+    // Clock generation (100 MHz)
+    initial clk = 0;
+    always #5 clk = ~clk;
+
+    // VCD dump for waveform visualization
     initial begin
-    	R_EX=1'b1;
-    	stall_EX=1'b0;
-        // Load test vectors
-        $readmemh("instmem.dat", instmem);
-     	
-	$display("Starting Control Unit Test Bench");
-   	for (i = 0; i < num_tests; i++) begin
-            instr = instmem[i];
-            #1; // Wait for combinational logic to settle
-
-                $display("X Mismatch at test %0d", i);
-                $display("   Instr:    %b", instr);
-         	$display("   aluop =   %b", aluop);
-         	$display("   alusrc=   %b", alusrc);
-         	$display("   regsel =  %b", regsel);
-         	$display("   regwrite= %b", regwrite);
-         	$display("   gpio_we = %b", gpio_we);
-         	$display("   pcsrc = %b", pcsrc_EX);
-         	$display("   stall_FETCH = %b", stall_FETCH);
-        end
-
-        $display("Control Unit Testing Complete");
-    end
-        logic clk;
-    logic rst;
-    // IO
-    logic [31:0] gpio_in;
-    logic [31:0] gpio_out;
-    // DUT
-    cpu my_cpu (
-        .clk     (clk),
-        .rst     (rst),       // cpu expects active-high reset
-        .gpio_in (32'h12345678),
-        .gpio_out(gpio_out)
-    );
-    // Clock generator (100 MHz-ish: 10 ns period)
-    initial begin
-        clk = 1'b0;
-        forever begin
-            #5 clk = ~clk;
-        end
+        $dumpfile("simtop.vcd");
+        $dumpvars(0, uut);
     end
 
-    // Reset + stimulus
-    initial begin
-        // initialize signals
-        gpio_in = 32'd12345;   // your test input
-        rst = 1'b1;             // assert reset (active-high)
-        #40;                    // hold reset for a few clock cycles
-        rst = 1'b0;             // release reset -> CPU starts running
+    // Helper task for running test cases
+    task run_case(input [31:0] switches, input integer cycles, input string label);
+        begin
+            tb_switches = switches;
+            $display("\n--- Test: %s | switches = %0d (0x%0h) ---", label, switches, switches);
+            repeat (cycles) @(posedge clk);
 
-        #5000;                  // adjust as needed
-        $display("GPIO out= %b", gpio_out);
-        $display("SIM: finished.");
+            // Wait for gpio_we to be set
+            wait (tb_gpio_we == 1'b1);
+
+            $display("  gpio_we=%0b gpio_wdata=0x%08h (%0d)",
+                     tb_gpio_we, tb_gpio_wdata, tb_gpio_wdata);
+        end
+    endtask
+
+    // Main stimulus
+    initial begin
+        $display("Starting simulation...");
+
+        rst_n = 1'b0;
+        tb_switches = 32'd0;
+        repeat(10) @(posedge clk);  // wait for reset
+        rst_n = 1'b1;  // release reset
+
+        // Run tests with test cases
+        run_case(32'd2, 100, "sqrt(2)");
+        run_case(32'd17, 100, "sqrt(17)");
+        run_case(32'd12345, 100, "sqrt(12345)");
+
+        // Check gpio_wdata and gpio_we after all tests
+        $display("After 100 cycles: gpio_we=%b gpio_wdata=0x%08h", tb_gpio_we, tb_gpio_wdata);
+
+        $display("Simulation finished.");
         $finish;
     end
 endmodule
+

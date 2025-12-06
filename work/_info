@@ -1,0 +1,238 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.01, Jan 28 2020
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/acct/framos/CSCE611/Lab_jb
+T_opt
+!s110 1765056201
+VLe2@oeX@om^GXMY2RR^B_0
+Z1 04 6 4 work simtop fast 0
+=1-000ae431a4f1-69349ec9-a0ec4-a4bcb
+o-quiet -auto_acc_if_foreign -work work
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2020.1;71
+R0
+T_opt1
+!s110 1765050270
+V3M<LgjXfnUS:fFLZ6bE^L3
+04 3 4 work alu fast 0
+04 12 4 work control_unit fast 0
+04 3 4 work cpu fast 0
+04 9 4 work hexdriver fast 0
+04 18 4 work instructionDecoder fast 0
+04 7 4 work regfile fast 0
+R1
+04 3 4 work top fast 0
+=1-000ae431a4f1-6934879d-f1712-61434
+o-quiet -auto_acc_if_foreign -work work +acc
+R2
+n@_opt1
+R3
+R0
+valu
+Z4 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z5 !s110 1765056623
+!i10b 1
+!s100 Fz;21dl2PMZ6MFeGeLCUd1
+Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
+Idkda=b6UUa[8UodDQhYLI2
+Z7 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+Z8 w1765047583
+8alu.sv
+Falu.sv
+!i122 52
+L0 7 48
+Z9 OL;L;2020.1;71
+r1
+!s85 0
+31
+Z10 !s108 1765056623.000000
+!s107 top.sv|simtop.sv|regfile.sv|instructionDecoder.sv|hexdriver.sv|cpu.sv|control_unit.sv|alu.sv|
+Z11 !s90 -pedanticerrors|-lint|-hazards|-source|-stats=all|alu.sv|control_unit.sv|cpu.sv|hexdriver.sv|instructionDecoder.sv|regfile.sv|simtop.sv|top.sv|
+!i113 0
+Z12 o-pedanticerrors -lint -hazards -source -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+vcontrol_unit
+R4
+R5
+!i10b 1
+!s100 ZM@DB^1k@GCM?cKBZ2h`E3
+R6
+Imj8jW@8UYcm9G<gnS1<L@3
+R7
+S1
+R0
+R8
+8control_unit.sv
+Fcontrol_unit.sv
+!i122 52
+L0 3 196
+R9
+r1
+!s85 0
+31
+R10
+Z13 !s107 top.sv|simtop.sv|regfile.sv|instructionDecoder.sv|hexdriver.sv|cpu.sv|control_unit.sv|alu.sv|
+R11
+!i113 0
+R12
+R2
+vcpu
+R4
+R5
+!i10b 1
+!s100 1Mm0i?]@7ZCf0z]9A>5o73
+R6
+I`Qi49X:>L?QfEPA5mf0iB2
+R7
+S1
+R0
+R8
+8cpu.sv
+Fcpu.sv
+!i122 52
+L0 2 267
+R9
+r1
+!s85 0
+31
+R10
+R13
+R11
+!i113 0
+R12
+R2
+vhexdriver
+R4
+R5
+!i10b 1
+!s100 <L8WjH1@CicZ6`f0;mg2Z0
+R6
+In:kT34IbbRK3JZRLZ0W6O2
+R7
+S1
+R0
+R8
+8hexdriver.sv
+Fhexdriver.sv
+!i122 52
+L0 2 24
+R9
+r1
+!s85 0
+31
+R10
+R13
+R11
+!i113 0
+R12
+R2
+vinstructionDecoder
+R4
+R5
+!i10b 1
+!s100 @<UNo>J1Y7O^ZG;@4U8W=1
+R6
+IW[4gZi;M`2V1f`Kc40SO=0
+R7
+S1
+R0
+R8
+8instructionDecoder.sv
+FinstructionDecoder.sv
+!i122 52
+L0 1 64
+R9
+r1
+!s85 0
+31
+R10
+R13
+R11
+!i113 0
+R12
+R2
+ninstruction@decoder
+vregfile
+R4
+R5
+!i10b 1
+!s100 ?^aWIU5R`P?QnPdE@RGJe0
+R6
+IRDSL9iG2]ma^CoM2hhRo:0
+R7
+S1
+R0
+R8
+8regfile.sv
+Fregfile.sv
+!i122 52
+L0 3 38
+R9
+r1
+!s85 0
+31
+R10
+R13
+R11
+!i113 0
+R12
+R2
+vsimtop
+R4
+R5
+!i10b 1
+!s100 EYDMEhePRj6e9<=A;ahAz3
+R6
+Ih<=z5178HBjAVX^1PG@8>0
+R7
+S1
+R0
+w1765056476
+8simtop.sv
+Fsimtop.sv
+!i122 52
+L0 2 63
+R9
+r1
+!s85 0
+31
+R10
+R13
+R11
+!i113 0
+R12
+R2
+vtop
+R4
+R5
+!i10b 1
+!s100 J:1KAnkm9R0>?m>G_cY3S0
+R6
+ICm0a3Tb4a>>LT=QJBLR=:2
+R7
+S1
+R0
+R8
+8top.sv
+Ftop.sv
+!i122 52
+L0 2 121
+R9
+r1
+!s85 0
+31
+R10
+R13
+R11
+!i113 0
+R12
+R2

@@ -1,0 +1,36 @@
+# vsim -pedanticerrors -hazards -c -sva -immedassert work.simtop -do "/dev/stdin" 
+# Start time: 16:30:24 on Dec 06,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# //  Questa Sim-64
+# //  Version 2020.1 linux_x86_64 Jan 28 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.simtop(fast)
+# do /dev/stdin
+# Starting simulation...
+# 
+# --- Test: sqrt(2) | switches = 2 (0x2) ---
+#   gpio_we=1 gpio_wdata=0x00141424 (1315876)
+# 
+# --- Test: sqrt(17) | switches = 17 (0x11) ---
+#   gpio_we=1 gpio_wdata=0x00412310 (4268816)
+# 
+# --- Test: sqrt(12345) | switches = 12345 (0x3039) ---
+#   gpio_we=1 gpio_wdata=0x11110809 (286328841)
+# After 100 cycles: gpio_we=1 gpio_wdata=0x11110809
+# Simulation finished.
+# ** Note: $finish    : simtop.sv(62)
+#    Time: 93045 ns  Iteration: 4  Instance: /simtop
+# End time: 16:30:24 on Dec 06,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

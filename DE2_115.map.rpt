@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE2_115
-Sat Dec  6 01:21:41 2025
+Sat Dec  6 16:29:10 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -60,7 +60,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Dec  6 01:21:41 2025           ;
+; Analysis & Synthesis Status        ; Successful - Sat Dec  6 16:29:10 2025           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; DE2_115                                         ;
 ; Top-level Entity Name              ; top                                             ;
@@ -168,21 +168,22 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 16          ;
-; Maximum allowed            ; 8           ;
+; Number detected on machine ; 24          ;
+; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 8           ;
+; Average used               ; 1.01        ;
+; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processor 3            ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
 ;     Processor 4            ;   0.0%      ;
 ;     Processor 5            ;   0.0%      ;
 ;     Processor 6            ;   0.0%      ;
 ;     Processor 7            ;   0.0%      ;
 ;     Processor 8            ;   0.0%      ;
+;     Processors 9-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -191,14 +192,14 @@ refer to the applicable agreement for further details.
 +----------------------------------+-----------------+------------------------------------+---------------------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type                          ; File Name with Absolute Path                                                          ; Library ;
 +----------------------------------+-----------------+------------------------------------+---------------------------------------------------------------------------------------+---------+
-; top.sv                           ; yes             ; User SystemVerilog HDL File        ; /acct/jgunst/lab_jb/top.sv                                                            ;         ;
-; hexdriver.sv                     ; yes             ; User SystemVerilog HDL File        ; /acct/jgunst/lab_jb/hexdriver.sv                                                      ;         ;
-; cpu.sv                           ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/jgunst/lab_jb/cpu.sv                                                            ;         ;
-; test.dat                         ; yes             ; Auto-Found Unspecified File        ; /acct/jgunst/lab_jb/test.dat                                                          ;         ;
-; instructionDecoder.sv            ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/jgunst/lab_jb/instructionDecoder.sv                                             ;         ;
-; control_unit.sv                  ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/jgunst/lab_jb/control_unit.sv                                                   ;         ;
-; alu.sv                           ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/jgunst/lab_jb/alu.sv                                                            ;         ;
-; regfile.sv                       ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/jgunst/lab_jb/regfile.sv                                                        ;         ;
+; top.sv                           ; yes             ; User SystemVerilog HDL File        ; /acct/framos/CSCE611/Lab_jb/top.sv                                                    ;         ;
+; hexdriver.sv                     ; yes             ; User SystemVerilog HDL File        ; /acct/framos/CSCE611/Lab_jb/hexdriver.sv                                              ;         ;
+; cpu.sv                           ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/framos/CSCE611/Lab_jb/cpu.sv                                                    ;         ;
+; test.dat                         ; yes             ; Auto-Found Unspecified File        ; /acct/framos/CSCE611/Lab_jb/test.dat                                                  ;         ;
+; instructionDecoder.sv            ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/framos/CSCE611/Lab_jb/instructionDecoder.sv                                     ;         ;
+; control_unit.sv                  ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/framos/CSCE611/Lab_jb/control_unit.sv                                           ;         ;
+; alu.sv                           ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/framos/CSCE611/Lab_jb/alu.sv                                                    ;         ;
+; regfile.sv                       ; yes             ; Auto-Found SystemVerilog HDL File  ; /acct/framos/CSCE611/Lab_jb/regfile.sv                                                ;         ;
 ; altsyncram.tdf                   ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
 ; stratix_ram_block.inc            ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
 ; lpm_mux.inc                      ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
@@ -208,14 +209,14 @@ refer to the applicable agreement for further details.
 ; altrom.inc                       ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/altrom.inc            ;         ;
 ; altram.inc                       ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/altram.inc            ;         ;
 ; altdpram.inc                     ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/altdpram.inc          ;         ;
-; db/altsyncram_mcc1.tdf           ; yes             ; Auto-Generated Megafunction        ; /acct/jgunst/lab_jb/db/altsyncram_mcc1.tdf                                            ;         ;
+; db/altsyncram_mcc1.tdf           ; yes             ; Auto-Generated Megafunction        ; /acct/framos/CSCE611/Lab_jb/db/altsyncram_mcc1.tdf                                    ;         ;
 ; lpm_mult.tdf                     ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/lpm_mult.tdf          ;         ;
 ; lpm_add_sub.inc                  ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/lpm_add_sub.inc       ;         ;
 ; multcore.inc                     ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/multcore.inc          ;         ;
 ; bypassff.inc                     ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/bypassff.inc          ;         ;
 ; altshift.inc                     ; yes             ; Megafunction                       ; /usr/local/3rdparty/altera/18.1/quartus/libraries/megafunctions/altshift.inc          ;         ;
-; db/mult_46t.tdf                  ; yes             ; Auto-Generated Megafunction        ; /acct/jgunst/lab_jb/db/mult_46t.tdf                                                   ;         ;
-; db/mult_7dt.tdf                  ; yes             ; Auto-Generated Megafunction        ; /acct/jgunst/lab_jb/db/mult_7dt.tdf                                                   ;         ;
+; db/mult_46t.tdf                  ; yes             ; Auto-Generated Megafunction        ; /acct/framos/CSCE611/Lab_jb/db/mult_46t.tdf                                           ;         ;
+; db/mult_7dt.tdf                  ; yes             ; Auto-Generated Megafunction        ; /acct/framos/CSCE611/Lab_jb/db/mult_7dt.tdf                                           ;         ;
 +----------------------------------+-----------------+------------------------------------+---------------------------------------------------------------------------------------+---------+
 
 
@@ -804,7 +805,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:04     ;
+; Top            ; 00:00:03     ;
 +----------------+--------------+
 
 
@@ -814,41 +815,41 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Sat Dec  6 01:21:29 2025
+    Info: Processing started: Sat Dec  6 16:29:01 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE2_115 -c DE2_115
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
+Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file top.sv
-    Info (12023): Found entity 1: top File: /acct/jgunst/lab_jb/top.sv Line: 2
+    Info (12023): Found entity 1: top File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file hexdriver.sv
-    Info (12023): Found entity 1: hexdriver File: /acct/jgunst/lab_jb/hexdriver.sv Line: 2
+    Info (12023): Found entity 1: hexdriver File: /acct/framos/CSCE611/Lab_jb/hexdriver.sv Line: 2
 Info (12127): Elaborating entity "top" for the top level hierarchy
-Warning (10230): Verilog HDL assignment warning at top.sv(56): truncated value with size 26 to match size of target (24) File: /acct/jgunst/lab_jb/top.sv Line: 56
-Warning (10230): Verilog HDL assignment warning at top.sv(67): truncated value with size 32 to match size of target (24) File: /acct/jgunst/lab_jb/top.sv Line: 67
+Warning (10230): Verilog HDL assignment warning at top.sv(56): truncated value with size 26 to match size of target (24) File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 56
+Warning (10230): Verilog HDL assignment warning at top.sv(67): truncated value with size 32 to match size of target (24) File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 67
 Warning (12125): Using design file cpu.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info (12023): Found entity 1: cpu File: /acct/jgunst/lab_jb/cpu.sv Line: 1
-Info (12128): Elaborating entity "cpu" for hierarchy "cpu:u_cpu" File: /acct/jgunst/lab_jb/top.sv Line: 111
-Warning (10850): Verilog HDL warning at cpu.sv(12): number of words (43) in memory file does not match the number of elements in the address range [0:4095] File: /acct/jgunst/lab_jb/cpu.sv Line: 12
-Warning (10030): Net "inst_ram.data_a" at cpu.sv(11) has no driver or initial value, using a default initial value '0' File: /acct/jgunst/lab_jb/cpu.sv Line: 11
-Warning (10030): Net "inst_ram.waddr_a" at cpu.sv(11) has no driver or initial value, using a default initial value '0' File: /acct/jgunst/lab_jb/cpu.sv Line: 11
-Warning (10030): Net "inst_ram.we_a" at cpu.sv(11) has no driver or initial value, using a default initial value '0' File: /acct/jgunst/lab_jb/cpu.sv Line: 11
+    Info (12023): Found entity 1: cpu File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 2
+Info (12128): Elaborating entity "cpu" for hierarchy "cpu:u_cpu" File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 111
+Warning (10850): Verilog HDL warning at cpu.sv(13): number of words (43) in memory file does not match the number of elements in the address range [0:4095] File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 13
+Warning (10030): Net "inst_ram.data_a" at cpu.sv(12) has no driver or initial value, using a default initial value '0' File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 12
+Warning (10030): Net "inst_ram.waddr_a" at cpu.sv(12) has no driver or initial value, using a default initial value '0' File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 12
+Warning (10030): Net "inst_ram.we_a" at cpu.sv(12) has no driver or initial value, using a default initial value '0' File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 12
 Warning (12125): Using design file instructionDecoder.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info (12023): Found entity 1: instructionDecoder File: /acct/jgunst/lab_jb/instructionDecoder.sv Line: 1
-Info (12128): Elaborating entity "instructionDecoder" for hierarchy "cpu:u_cpu|instructionDecoder:instructionDecoder_i" File: /acct/jgunst/lab_jb/cpu.sv Line: 62
+    Info (12023): Found entity 1: instructionDecoder File: /acct/framos/CSCE611/Lab_jb/instructionDecoder.sv Line: 1
+Info (12128): Elaborating entity "instructionDecoder" for hierarchy "cpu:u_cpu|instructionDecoder:instructionDecoder_i" File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 63
 Warning (12125): Using design file control_unit.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info (12023): Found entity 1: control_unit File: /acct/jgunst/lab_jb/control_unit.sv Line: 2
-Info (12128): Elaborating entity "control_unit" for hierarchy "cpu:u_cpu|control_unit:cu_i" File: /acct/jgunst/lab_jb/cpu.sv Line: 101
+    Info (12023): Found entity 1: control_unit File: /acct/framos/CSCE611/Lab_jb/control_unit.sv Line: 3
+Info (12128): Elaborating entity "control_unit" for hierarchy "cpu:u_cpu|control_unit:cu_i" File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 102
 Warning (12125): Using design file alu.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info (12023): Found entity 1: alu File: /acct/jgunst/lab_jb/alu.sv Line: 7
-Info (12128): Elaborating entity "alu" for hierarchy "cpu:u_cpu|alu:alu_inst" File: /acct/jgunst/lab_jb/cpu.sv Line: 116
-Warning (10036): Verilog HDL or VHDL warning at alu.sv(15): object "mullu" assigned a value but never read File: /acct/jgunst/lab_jb/alu.sv Line: 15
+    Info (12023): Found entity 1: alu File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 7
+Info (12128): Elaborating entity "alu" for hierarchy "cpu:u_cpu|alu:alu_inst" File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 117
+Warning (10036): Verilog HDL or VHDL warning at alu.sv(15): object "mullu" assigned a value but never read File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 15
 Warning (12125): Using design file regfile.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info (12023): Found entity 1: regfile File: /acct/jgunst/lab_jb/regfile.sv Line: 3
-Info (12128): Elaborating entity "regfile" for hierarchy "cpu:u_cpu|regfile:reg_file" File: /acct/jgunst/lab_jb/cpu.sv Line: 213
-Info (12128): Elaborating entity "hexdriver" for hierarchy "hexdriver:disp0" File: /acct/jgunst/lab_jb/top.sv Line: 113
+    Info (12023): Found entity 1: regfile File: /acct/framos/CSCE611/Lab_jb/regfile.sv Line: 3
+Info (12128): Elaborating entity "regfile" for hierarchy "cpu:u_cpu|regfile:reg_file" File: /acct/framos/CSCE611/Lab_jb/cpu.sv Line: 214
+Info (12128): Elaborating entity "hexdriver" for hierarchy "hexdriver:disp0" File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 113
 Warning (276020): Inferred RAM node "cpu:u_cpu|regfile:reg_file|mem_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
 Warning (276020): Inferred RAM node "cpu:u_cpu|regfile:reg_file|mem_rtl_1" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
-Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "/acct/jgunst/lab_jb/db/DE2_115.ram0_cpu_1987c.hdl.mif" contains "don't care" values -- overwriting them with 0s
+Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "/acct/framos/CSCE611/Lab_jb/db/DE2_115.ram0_cpu_1987c.hdl.mif" contains "don't care" values -- overwriting them with 0s
 Info (19000): Inferred 2 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "cpu:u_cpu|regfile:reg_file|mem_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
@@ -881,8 +882,8 @@ Info (19000): Inferred 2 megafunctions from design logic
         Info (286033): Parameter INDATA_ACLR_A set to NONE
         Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
 Info (278001): Inferred 2 megafunctions from design logic
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "cpu:u_cpu|alu:alu_inst|Mult1" File: /acct/jgunst/lab_jb/alu.sv Line: 22
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "cpu:u_cpu|alu:alu_inst|Mult0" File: /acct/jgunst/lab_jb/alu.sv Line: 21
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "cpu:u_cpu|alu:alu_inst|Mult1" File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 22
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "cpu:u_cpu|alu:alu_inst|Mult0" File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 21
 Info (12130): Elaborated megafunction instantiation "cpu:u_cpu|regfile:reg_file|altsyncram:mem_rtl_0"
 Info (12133): Instantiated megafunction "cpu:u_cpu|regfile:reg_file|altsyncram:mem_rtl_0" with the following parameter:
     Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
@@ -900,9 +901,9 @@ Info (12133): Instantiated megafunction "cpu:u_cpu|regfile:reg_file|altsyncram:m
     Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
     Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_mcc1.tdf
-    Info (12023): Found entity 1: altsyncram_mcc1 File: /acct/jgunst/lab_jb/db/altsyncram_mcc1.tdf Line: 27
-Info (12130): Elaborated megafunction instantiation "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult1" File: /acct/jgunst/lab_jb/alu.sv Line: 22
-Info (12133): Instantiated megafunction "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult1" with the following parameter: File: /acct/jgunst/lab_jb/alu.sv Line: 22
+    Info (12023): Found entity 1: altsyncram_mcc1 File: /acct/framos/CSCE611/Lab_jb/db/altsyncram_mcc1.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult1" File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 22
+Info (12133): Instantiated megafunction "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult1" with the following parameter: File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 22
     Info (12134): Parameter "LPM_WIDTHA" = "32"
     Info (12134): Parameter "LPM_WIDTHB" = "32"
     Info (12134): Parameter "LPM_WIDTHP" = "64"
@@ -913,9 +914,9 @@ Info (12133): Instantiated megafunction "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult1" 
     Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
     Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
 Info (12021): Found 1 design units, including 1 entities, in source file db/mult_46t.tdf
-    Info (12023): Found entity 1: mult_46t File: /acct/jgunst/lab_jb/db/mult_46t.tdf Line: 30
-Info (12130): Elaborated megafunction instantiation "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult0" File: /acct/jgunst/lab_jb/alu.sv Line: 21
-Info (12133): Instantiated megafunction "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult0" with the following parameter: File: /acct/jgunst/lab_jb/alu.sv Line: 21
+    Info (12023): Found entity 1: mult_46t File: /acct/framos/CSCE611/Lab_jb/db/mult_46t.tdf Line: 30
+Info (12130): Elaborated megafunction instantiation "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult0" File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 21
+Info (12133): Instantiated megafunction "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult0" with the following parameter: File: /acct/framos/CSCE611/Lab_jb/alu.sv Line: 21
     Info (12134): Parameter "LPM_WIDTHA" = "32"
     Info (12134): Parameter "LPM_WIDTHB" = "32"
     Info (12134): Parameter "LPM_WIDTHP" = "64"
@@ -926,20 +927,20 @@ Info (12133): Instantiated megafunction "cpu:u_cpu|alu:alu_inst|lpm_mult:Mult0" 
     Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
     Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
 Info (12021): Found 1 design units, including 1 entities, in source file db/mult_7dt.tdf
-    Info (12023): Found entity 1: mult_7dt File: /acct/jgunst/lab_jb/db/mult_7dt.tdf Line: 30
+    Info (12023): Found entity 1: mult_7dt File: /acct/framos/CSCE611/Lab_jb/db/mult_7dt.tdf Line: 30
 Info (13014): Ignored 456 buffer(s)
     Info (13019): Ignored 456 SOFT buffer(s)
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDG[8]" is stuck at GND File: /acct/jgunst/lab_jb/top.sv Line: 10
+    Warning (13410): Pin "LEDG[8]" is stuck at GND File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 10
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 5 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "CLOCK2_50" File: /acct/jgunst/lab_jb/top.sv Line: 6
-    Warning (15610): No output dependent on input pin "CLOCK3_50" File: /acct/jgunst/lab_jb/top.sv Line: 7
-    Warning (15610): No output dependent on input pin "KEY[1]" File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Warning (15610): No output dependent on input pin "KEY[2]" File: /acct/jgunst/lab_jb/top.sv Line: 14
-    Warning (15610): No output dependent on input pin "KEY[3]" File: /acct/jgunst/lab_jb/top.sv Line: 14
+    Warning (15610): No output dependent on input pin "CLOCK2_50" File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 6
+    Warning (15610): No output dependent on input pin "CLOCK3_50" File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 7
+    Warning (15610): No output dependent on input pin "KEY[1]" File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 14
+    Warning (15610): No output dependent on input pin "KEY[2]" File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 14
+    Warning (15610): No output dependent on input pin "KEY[3]" File: /acct/framos/CSCE611/Lab_jb/top.sv Line: 14
 Info (21057): Implemented 2147 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 25 input pins
     Info (21059): Implemented 83 output pins
@@ -947,9 +948,9 @@ Info (21057): Implemented 2147 device resources after synthesis - the final reso
     Info (21064): Implemented 64 RAM segments
     Info (21062): Implemented 16 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 24 warnings
-    Info: Peak virtual memory: 1034 megabytes
-    Info: Processing ended: Sat Dec  6 01:21:41 2025
-    Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:20
+    Info: Peak virtual memory: 1071 megabytes
+    Info: Processing ended: Sat Dec  6 16:29:11 2025
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:15
 
 
