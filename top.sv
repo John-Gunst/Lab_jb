@@ -1,70 +1,123 @@
 
 module top (
 
-	//////////// CLOCK //////////
-	input wire		          		CLOCK_50,
-	input wire		          		CLOCK2_50,
-	input wire		          		CLOCK3_50,
+    //////////// CLOCK //////////
+    input                       CLOCK_50,
+    input                       CLOCK2_50,
+    input                       CLOCK3_50,
 
-	//////////// KEY //////////
-	input wire	     [3:0]		KEY,
+    //////////// LED //////////
+    output            [8:0]     LEDG,
+    output           [17:0]     LEDR,
 
-	//////////// SW //////////
-	input wire	    [17:0]		SW,
+    //////////// KEY //////////
+    input              [3:0]    KEY,
 
-	//////////// SEG7 //////////
-	output wire	     [6:0]		HEX0,
-	output wire	     [6:0]		HEX1,
-	output wire	     [6:0]		HEX2,
-	output wire	     [6:0]		HEX3,
-	output wire	     [6:0]		HEX4,
-	output wire	     [6:0]		HEX5,
-	output wire	     [6:0]		HEX6,
-	output wire	     [6:0]		HEX7
+    //////////// SW //////////
+    input             [17:0]    SW,
+
+    //////////// SEG7 //////////
+    output             [6:0]    HEX0,
+    output             [6:0]    HEX1,
+    output             [6:0]    HEX2,
+    output             [6:0]    HEX3,
+    output             [6:0]    HEX4,
+    output             [6:0]    HEX5,
+    output             [6:0]    HEX6,
+    output             [6:0]    HEX7
 );
 
+//=======================================================
+//  REG/WIRE declarations
+//=======================================================
+
+    /* 24 bit clock divider, converts 50MHz clock signal to 2.98Hz */
+    logic [23:0] clkdiv;
+    logic ledclk;
+    assign ledclk = clkdiv[23];
+
+    /* driver for LEDs */
+    logic [25:0] leds;
+    assign LEDR = leds[25:8];
+    assign LEDG = leds[7:0];
+
+    /* LED state register, 0 means going left, 1 means going right */
+    logic ledstate;
+
+    // --- define reset_n (active-low) and drive it from KEY[0] ---
+    logic reset_n;
+    assign reset_n = KEY[0];
+
+//=======================================================
+//  Behavioral coding
+//=======================================================
+
+    initial begin
+        clkdiv = 26'h0;
+        /* start at the far right, LEDG0 */
+        leds = 26'b1;
+        /* start out going to the left */
+        ledstate = 1'b0;
+    end
+
+    always @(posedge CLOCK_50) begin
+        /* drive the clock divider, every 2^26 cycles of CLOCK_50, the
+        * top bit will roll over and give us a clock edge for clkdiv
+        * */
+        clkdiv <= clkdiv + 1;
+    end
+
+    always @(posedge ledclk) begin
+        /* going left and we are at the far left, time to turn around */
+        if ( (ledstate == 0) && (leds == 26'b10000000000000000000000000) ) begin
+            ledstate <= 1;
+            leds <= leds >> 1;
+
+        /* going left and not at the far left, keep going */
+        end else if (ledstate == 0) begin
+            ledstate <= 0;
+            leds <= leds << 1;
+
+        /* going right and we are at the far right, turn around */
+        end else if ( (ledstate == 1) && (leds == 26'b1) ) begin
+            ledstate <= 0;
+            leds <= leds << 1;
+
+        /* going right, and we aren't at the far right */
+        end else begin
+            leds <= leds >> 1;
+        end
+    end
+    
+    logic        cpu_gpio_we;
+    logic [31:0] cpu_gpio_wdata;
+    logic [31:0] hex_data_reg;
+    always_ff @(posedge CLOCK_50 or negedge KEY[0]) begin
+        if (!KEY[0]) begin
+            hex_data_reg <= 32'd0;
+        end else if (cpu_gpio_we) begin
+            hex_data_reg <= cpu_gpio_wdata;
+        end
+    end
 
 
 
+    cpu u_cpu (
+        .clk(CLOCK_50),                                                                                                                                                                                                  
+        .rst_n      (reset_n),
+        .io0_in     ({14'b0, SW}),   // zero-extend 18-bit switches
+        .gpio_we    (cpu_gpio_we),   // strobe on csrrw HEX
+        .gpio_wdata (cpu_gpio_wdata) // data written by csrrw HEX (rs1)
+    );
 
+    hexdriver disp0(.val(hex_data_reg[ 3: 0]), .HEX(HEX0)); // D0
+    hexdriver disp1(.val(hex_data_reg[ 7: 4]), .HEX(HEX1)); // D1
+    hexdriver disp2(.val(hex_data_reg[11: 8]), .HEX(HEX2)); // D2
+    hexdriver disp3(.val(hex_data_reg[15:12]), .HEX(HEX3)); // D3
+    hexdriver disp4(.val(hex_data_reg[19:16]), .HEX(HEX4)); // D4
+    hexdriver disp5(.val(hex_data_reg[23:20]), .HEX(HEX5)); // D5
+    hexdriver disp6(.val(hex_data_reg[27:24]), .HEX(HEX6)); // D6
+    hexdriver disp7(.val(hex_data_reg[31:28]), .HEX(HEX7)); // D7
 
-//////////////////////////////////////////////////////////////////////////
-// CPU board
-//////////////////////////////////////////////////////////////////////////
-
-	// internal wires for CPU to the board
-	wire        cpu_rst;        // active high reset into cpu
-	wire [31:0] cpu_gpio_in;    // CSR io0 (switches)
-	wire [31:0] cpu_gpio_out;   // CSR io2 (hex display)
-	wire        cpu_gpio_we;    // optional strobe when CPU writes io2
-
-	// KEY[0] on DE2 is active-low. Convert to active-high reset for cpu.
-	// if your cpu expects active low reset, pass KEY[0] directly instead.
-	assign cpu_rst = ~KEY[0]; // press KEY0 -> cpu_rst = 1 (reset asserted)
-
-	// zero extend SW into 32-bit CSR input
-	assign cpu_gpio_in = {14'd0, SW}; // adjust if your SW width differs
-
-	// instantiate the CPU
-	cpu u_cpu (
-	    .clk      (CLOCK_50),    // board clock
-	    .rst      (cpu_rst),     // cpu reset
-	    .gpio_in  (cpu_gpio_in),
-	    .gpio_out (cpu_gpio_out)
-	    //.gpio_we  (cpu_gpio_we)
-	);
-
-	// instantiate hexdrivers: map packed 32-bit cpu_gpio_out -> HEX0..HEX7
-	// LSB 4bits -> HEX0, next 4bits -> HEX1, etc.
-	hexdriver hd0 (.val(cpu_gpio_out[3:0]),   .HEX(HEX0));
-	hexdriver hd1 (.val(cpu_gpio_out[7:4]),   .HEX(HEX1));
-	hexdriver hd2 (.val(cpu_gpio_out[11:8]),  .HEX(HEX2));
-	hexdriver hd3 (.val(cpu_gpio_out[15:12]), .HEX(HEX3));
-	hexdriver hd4 (.val(cpu_gpio_out[19:16]), .HEX(HEX4));
-	hexdriver hd5 (.val(cpu_gpio_out[23:20]), .HEX(HEX5));
-	hexdriver hd6 (.val(cpu_gpio_out[27:24]), .HEX(HEX6));
-	hexdriver hd7 (.val(cpu_gpio_out[31:28]), .HEX(HEX7));
-
-	// optional debug: light an LED when cpu writes to the HEX CSR
-	// assign LEDR[0] = cpu_gpio_we;
 endmodule
+

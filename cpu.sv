@@ -1,305 +1,268 @@
-// cpu.sv - updated (regfile instantiation moved after EX->WB declarations)
-module cpu (
+// framos and jgunst
+module cpu(
+    input  logic        clk,
+    input  logic        rst_n,
 
-    input  logic         clk,
-    input  logic         rst,       // active-high reset
-    input  logic [31:0]  gpio_in,   // io0 (switches)
-    output logic [31:0]  gpio_out   // io2 (hex display)
+    input  logic [31:0] io0_in,        // switches (read when regsel=2'b00)
+    output logic        gpio_we,       // asserted by CU for HEX writes (csrrw io2)
+    output logic [31:0] gpio_wdata     // data to HEX (from rs1)
 );
 
- logic [31:0] instmem [0:4095];
-/**
-// Initialize instruction memory
-initial begin
-    integer i;
-    // Set all memory locations to 0 to avoid 'X' fetches
-    for (i = 0; i < 4096; i = i + 1)
-        instmem[i] = 32'd0;
+    // ------------------ INSTRUCTION MEMORY (F) ------------------
+    logic [31:0] inst_ram [0:4095];
+    initial $readmemh("test.dat", inst_ram);
 
-    // Load instruction memory from file
-    $readmemh("instmem.dat", instmem);
-    `ifndef SYNTHESIS
-    `ifndef ALTERA_RESERVED_QIS
-	    $display("[%0t] Instruction memory initialized from instmem.dat", $time);
-    `endif
-    `endif
- end
-**/
-initial $readmemh ("instmem.dat",instmem);
-// ==========================================================
-// Program Counter + Fetch Register
-// ==========================================================
-logic [31:0] instr_F;      // instruction fetched (registered)
-logic [11:0] pc, pc_next;  // 12 bits for 4K word addresses
-logic [31:0] branch_addr, branch_offset_EX,branch_addr_EX,jal_addr, jalr_addr;
-logic [31:0] jalr_offset,jal_offset_EX;
-logic [1:0] pcsrc_EX;
-logic [11:0] PC_EX;
-logic [31:0] instruction_EX;
-logic [31:0] rf_readdata1,rf_readdata2;
-logic stall_FETCH;
-logic stall_EX;
+    // Fetch-stage PC (byte address)
+    logic [31:0] PC_FETCH;
 
-// ==========================================================
-// Synchronous PC Update + Fetch
-// ==========================================================
-logic halt_pending;
-assign branch_offset_EX =
-{instruction_EX[31], instruction_EX[7], instruction_EX[30:25], instruction_EX[11:8], 1'b0};
-assign branch_addr_EX = PC_EX + {branch_offset_EX[12],branch_offset_EX[12:2]};
-assign jal_offset_EX = {instruction_EX[31],instruction_EX[19:12],instruction_EX[20],instruction_EX[30:21],1'b0};
-assign jal_addr_EX = PC_EX + jal_offset_EX[13:2];
-assign jalr_offset = instruction_EX[31:20];
-assign jalr_addr = rf_readdata1[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]};
+    // Instruction fetched in F (combinational read)
+    logic [31:0] instr_F;
+    assign instr_F = inst_ram[PC_FETCH[13:2]];  // word-aligned
 
+    // EX-stage PC (PC of instruction_EX)
+    logic [31:0] PC_EX;
 
+    // Next PC + helpers
+    logic [31:0] pc_next;
+    logic [31:0] pc_plus4_F;
+    logic [31:0] pc_plus4_EX;
 
-    // ------------------------------------------------------------------
-    // Control unit (combinational)
-    // ------------------------------------------------------------------
-    // Control signals
-    logic [3:0]  aluop;
-    logic        alusrc;
-    logic [1:0]  regsel;
-    logic        regwrite;
-    logic        gpio_we;
-    //Fields to be passed to registers
-    logic [4:0]  rd;
-    logic [4:0]  rs1;
-    logic [4:0]  rs2;
-    logic [11:0] imm_i;
-    logic [19:0] imm_u; 
-    logic [6:0] opcode;
-    logic [31:0] R_EX;
+    assign pc_plus4_F  = PC_FETCH + 32'd4;
+    assign pc_plus4_EX = PC_EX    + 32'd4;
 
-    control_unit my_control_unit(
-	    .instr   (instr_F),
-	    .R_EX    (R_EX),
-	    .pcsrc_EX (pcsrc_EX),
-	    .aluop   (aluop),
-	    .alusrc  (alusrc),
-	    .regsel  (regsel),
-	    .regwrite(regwrite),
-	    .gpio_we (gpio_we),
-	    .rd      (rd),
-	    .rs1     (rs1),
-	    .rs2     (rs2),
-	    .imm_i   (imm_i),
-	    .imm_u   (imm_u),
-	    .opcode  (opcode),
-	    .stall_EX(stall_EX),
-	    .stall_FETCH(stall_FETCH)
+    // ------------------ F->EX PIPELINE REGS ------------------
+    logic [31:0] instruction_EX;
+
+    // ------------------ DECODER OUTPUTS ------------------
+    logic [6:0]  op;
+    logic [2:0]  funct3;
+    logic [6:0]  funct7;
+    logic [4:0]  rd, rs1, rs2;
+    logic [11:0] imm;         
+    logic [31:0] imm_i_sext;   
+    logic [19:0] imm_u;        
+    logic [11:0] csr_address;
+
+    logic [31:0] imm_b_sext;   // for B-type
+    logic [31:0] imm_j_sext;   // for J-type
+
+    instructionDecoder instructionDecoder_i (
+        .instruction(instruction_EX),
+        .op(op), 
+        .funct3(funct3), 
+        .funct7(funct7),
+        .rd(rd), 
+        .rs1(rs1), 
+        .rs2(rs2),
+        .imm(imm), 
+        .imm_i_sext(imm_i_sext), 
+        .imm_u(imm_u),
+        .csr_address(csr_address),
+        .imm_b_sext(imm_b_sext),
+        .imm_j_sext(imm_j_sext)
     );
-    
-    always_ff @(posedge clk) begin
-    if (rst) begin
-        pc <= 12'd0;
-        instr_F <= 32'd0;
-        halt_pending <= 1'b0;
-	pc_next<=12'd0;
-        //pcsrc_EX<=2'b00;
-        `ifndef SYNTHESIS
-        `ifndef ALTERA_RESERVED_QIS
-            $display("[%0t] CPU RESET asserted: pc <= 0", $time);
-        `endif
-        `endif
-    end
-    else if (!stall_FETCH) begin
-        // Fetch instruction from memory
-        instr_F <= instmem[pc];
-        
-        // Debug printout
-        `ifndef SYNTHESIS
-        `ifndef ALTERA_RESERVED_QIS
-            $display("[%0t] FETCH: pc=0x%03h -> instr=0x%08h", $time, pc, instmem[pc]);
-        `endif
-        `endif
-        // Update PC
-        //TODO add pcsrc case
-    pc_next <= pc + 12'd1;
-        case(pcsrc_EX)
-	     2'b00: pc <= pc_next;
-	     2'b01: pc <= jalr_addr;
-	     2'b10: pc <= jal_addr_EX;
-	     2'b11: pc <= branch_addr_EX;
-	
-	endcase
-    end
-    else begin
-    	//stall
-    end
-end
 
+    // ------------------ STALL SIGNALS ------------------
+    // In a full design, stall_EX would come from a hazard unit / memory.
+    // For now we tie it off; wiring is in place.
+    logic stall_EX;
+    assign stall_EX = 1'b0;
 
+    logic stall_FETCH;   // output of CU, used to stall PC
 
-    // ------------------------------------------------------------------
-    // Register file signals (declare early)
-    // ------------------------------------------------------------------
-   
-    logic rf_we;
-    logic [4:0] rf_waddr;
-    logic [31:0] rf_wdata;
+    // ------------------ CONTROL (EX) ------------------
+    logic       alusrc;
+    logic       regwrite;
+    logic [1:0] regsel_EX;   // 00: GPIO, 01: U-imm, 10: ALU, 11: PC+4
+    logic [3:0] aluop;
 
-    // ------------------------------------------------------------------
-    // ALU signals (declared early, ALU instantiated later)
-    // ------------------------------------------------------------------
-    logic [31:0] alu_inA, alu_inB, alu_R;
-    logic alu_zero;
+    // branch/jump bits from CU
+    logic branch;
+    logic jal;
+    logic jalr;
 
-    // ------------------------------------------------------------------
-    // CSR mapping (combinational read)
-    // ------------------------------------------------------------------
-    logic [31:0] csr_out;
+    control_unit cu_i (
+        .funct7     (funct7),
+        .funct3     (funct3),
+        .opcode     (op),
+        .imm_i      (imm),
+        .stall_EX   (stall_EX),    // new input
+
+        .alusrc     (alusrc),
+        .regwrite   (regwrite),
+        .regsel     (regsel_EX),
+        .aluop      (aluop),
+        .gpio_we    (gpio_we),
+
+        .branch     (branch),
+        .jal        (jal),
+        .jalr       (jalr),
+
+        .stall_FETCH(stall_FETCH)  // new output
+    );
+
+    // ------------------ ALU (EX) ------------------
+    logic [31:0] rs1_data_EX, rs2_data_EX;
+    logic [31:0] alu_input2, alu_result_EX;
+    logic        alu_zero_EX;
+
+    assign alu_input2 = alusrc ? imm_i_sext : rs2_data_EX;
+
+    alu alu_inst (
+        .A   (rs1_data_EX),
+        .B   (alu_input2),
+        .op  (aluop),
+        .R   (alu_result_EX),
+        .zero(alu_zero_EX)
+    );
+
+    // ------------------ BRANCH / JUMP ADDRESSES (EX) ------------------
+    logic [31:0] branch_addr_EX;
+    logic [31:0] jal_addr_EX;
+    logic [31:0] jalr_addr_EX;
+
+    assign branch_addr_EX = PC_EX + imm_b_sext;
+    assign jal_addr_EX    = PC_EX + imm_j_sext;
+    assign jalr_addr_EX   = (rs1_data_EX + imm_i_sext) & ~32'd1;
+
+    // ------------------ BRANCH RESOLUTION (uses ALU R_EX) -------------
+    logic branch_taken_EX;
+
     always_comb begin
-        csr_out = 32'd0;
-        if (imm_i == 12'hf00) begin
-            csr_out = gpio_in;
-        end else if (imm_i == 12'hf02) begin
-            csr_out = 32'd0;
-        end else begin
-            csr_out = 32'd0;
+        branch_taken_EX = 1'b0;
+        if (branch) begin
+            unique case (funct3)
+                // BEQ: SUB → branch if R_EX == 0
+                3'b000: branch_taken_EX = (alu_result_EX == 32'd0);
+                // BNE: SUB → branch if R_EX != 0
+                3'b001: branch_taken_EX = (alu_result_EX != 32'd0);
+                // BLT: SLT → branch if R_EX == 1
+                3'b100: branch_taken_EX = (alu_result_EX == 32'd1);
+                // BGE: SLT → branch if R_EX == 0
+                3'b101: branch_taken_EX = (alu_result_EX == 32'd0);
+                // BLTU: SLTU → branch if R_EX == 1
+                3'b110: branch_taken_EX = (alu_result_EX == 32'd1);
+                // BGEU: SLTU → branch if R_EX == 0
+                3'b111: branch_taken_EX = (alu_result_EX == 32'd0);
+                default: ;
+            endcase
         end
     end
 
-    // ------------------------------------------------------------------
-    // EX -> WB pipeline registers (declare BEFORE we instantiate regfile if we want to wire them)
-    // ------------------------------------------------------------------
-    logic [31:0] ex_alu_R_q;
-    logic [4:0]  ex_rd_q;
-    logic        ex_regwrite_q;
-    logic [1:0]  ex_regsel_q;
-    logic        ex_gpio_we_q;
-    logic [11:0] ex_csr_addr_q;
-    logic [19:0] ex_imm_u_q;
-    logic [31:0] ex_csr_read_q;
-    logic [31:0] ex_rs1_val_q;
-     //hazard detection registers
-    
-    logic isload_EX;
+    // ------------------ PC SRC (pcsrc_EX) & NEXT PC -------------------
+    // 00: PC+4 (normal)
+    // 01: branch_addr_EX
+    // 10: jal_addr_EX
+    // 11: jalr_addr_EX
+    logic [1:0] pcsrc_EX;
 
- 
-  
-    always_ff @(posedge clk or posedge rst) begin
-        if (rst) begin
-            ex_rd_q        <= 5'd0;
-            ex_gpio_we_q    <= 1'b0;
-            ex_csr_read_q  <= 32'd0;
-            ex_imm_u_q     <= 20'd0;
-            //pcsrc_EX         <= 1'b0;
-            PC_EX          <= 12'b0;
-            instruction_EX <= 32'b0;
-      
-        end else begin
-             `ifndef SYNTHESIS
-	    // print the fetch/decode/register state for last two cycles
-	    $display("[%0t] DBG: pc=%0h instr_F=0x%08h ctrl_rd=%0d rd_field=%0d ex_rd_q=%0d alu_R=0x%08h",
-		     $time, pc, instr_F, rd, instr_F[11:7], ex_rd_q, alu_R);
-	    `endif
-            stall_EX <= stall_FETCH;
-            ex_rd_q        <= rd;
-            ex_csr_read_q  <= rf_readdata1;
-            ex_gpio_we_q    <= gpio_we;
-            ex_imm_u_q     <= imm_u;
-            PC_EX          <= pc;
-            instruction_EX <= instr_F;
+    always_comb begin
+        pcsrc_EX = 2'b00;           // default: sequential
+        if (jal) begin
+            pcsrc_EX = 2'b10;
+        end else if (jalr) begin
+            pcsrc_EX = 2'b11;
+        end else if (branch && branch_taken_EX) begin
+            pcsrc_EX = 2'b01;
         end
     end
-        assign ex_rs1_val_q = rf_readdata1;
-	assign ex_alu_R_q = alu_R;
-	assign ex_regsel_q = regsel;
-	assign ex_regwrite_q = regwrite;
-	assign ex_csr_addr_q  = imm_u;
 
+    always_comb begin
+        unique case (pcsrc_EX)
+            2'b00: pc_next = pc_plus4_F;
+            2'b01: pc_next = branch_addr_EX;
+            2'b10: pc_next = jal_addr_EX;
+            2'b11: pc_next = jalr_addr_EX;
+            default: pc_next = pc_plus4_F;
+        endcase
+    end
 
-    // ------------------------------------------------------------------
-    // REGFILE INSTANTIATION
-    // Moved here so ex_*_q signals are declared before use
-    // You can temporarily wire writeaddr/writedata to ex_*_q for debugging experiments.
-    // ------------------------------------------------------------------
+    // Flush the instruction in EX when control flow changes
+    logic flush_EX;
+    assign flush_EX = (pcsrc_EX != 2'b00);
 
-    // === Normal, safe WB-registered wiring ===
-   regfile u_regfile (
-        .clk (clk),
-        .we  (rf_we),
+    // ------------------ EX->WB PIPELINE ------------------
+    logic [1:0]  regsel_WB;
+    logic [31:0] alu_result_WB;
+    logic        regwrite_WB;
+    logic [4:0]  rd_WB;
+    logic [19:0] imm_u_WB;
+    logic [31:0] pc4_WB;         // PC_EX + 4 for JAL/JALR link
+
+    // ------------------ WRITEBACK MUX (WB) ------------------
+    logic [31:0] rd_data_WB;
+    always_comb begin
+        unique case (regsel_WB)
+            2'd0: rd_data_WB = io0_in;              // CSRRW SW readback
+            2'd1: rd_data_WB = {imm_u_WB,12'b0};    // LUI (upper 20 << 12)
+            2'd2: rd_data_WB = alu_result_WB;       // ALU result
+            2'd3: rd_data_WB = pc4_WB;              // PC+4 (JAL/JALR link)
+            default: rd_data_WB = 32'b0;
+        endcase
+    end
+
+    // ------------------ REGISTER FILE ------------------
+    regfile reg_file (
+        .clk       (clk),
+        .we        (regwrite_WB),   // commit-stage write enable
         .readaddr1 (rs1),
         .readaddr2 (rs2),
-        .writeaddr (ex_rd_q),
-        .writedata (rf_wdata),
-        .readdata1 (rf_readdata1),
-        .readdata2 (rf_readdata2)
-    );
-    
-    //resolve pcsrc_EX TODO Finish
-    //case(opcode):
-
-
-    // ------------------------------------------------------------------
-    // ALU instantiation (external module)
-    // expect alu(A,B,op,R,zero)
-    // ------------------------------------------------------------------
-    alu u_alu (
-        .A (alu_inA),
-        .B (alu_inB),
-        .op (aluop),
-        .R (alu_R),
-        .zero (alu_zero)
+        .writeaddr (rd_WB),
+        .writedata (rd_data_WB),
+        .readdata1 (rs1_data_EX),
+        .readdata2 (rs2_data_EX)
     );
 
-   // ALU input selection
-   logic [31:0] signext_imm_i;
+    assign gpio_wdata = rs1_data_EX;
 
-   assign signext_imm_i = { {20{imm_i[11]}}, imm_i };
+    // ------------------ FETCH (F) ------------------
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            PC_FETCH <= 32'd0;
+        end else if (!stall_FETCH) begin
+            PC_FETCH <= pc_next;
+        end
+        // if stall_FETCH==1, hold PC_FETCH
+    end
 
-   // For LUI (opcode = 0x37), rs1 is ignored → force alu_inA = 0
-   always_comb begin
-       if (opcode == 7'h37) begin
-           alu_inA = 32'b0;  // LUI
-       end else begin
-           alu_inA = rf_readdata1;
-       end
+    // ------------------ F->EX PIPELINE TRANSFER ------------------
+    localparam [31:0] NOP_INST = 32'h00000013; // ADDI x0, x0, 0
 
-       alu_inB = (alusrc) ? signext_imm_i : rf_readdata2;
-   end
-  // WRITEBACK
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            instruction_EX <= NOP_INST;
+            PC_EX          <= 32'd0;
+        end else if (!stall_EX) begin
+            if (flush_EX) begin
+                // Inject bubble after taken branch / jump
+                instruction_EX <= NOP_INST;
+                PC_EX          <= 32'd0;
+            end else begin
+                instruction_EX <= instr_F;
+                PC_EX          <= PC_FETCH;
+            end
+        end
+        // if stall_EX==1, hold current EX-stage instruction and PC_EX
+    end
 
-	always_ff @(posedge clk) begin
-	    if (gpio_we) begin 
-	    	gpio_out <= rf_readdata1;
-	    end
-	end
-	always_ff @(posedge clk or posedge rst) begin
-	    if (rst) begin
-		rf_we      <= 1'b0;
-		rf_waddr   <= 5'd0;
-		rf_wdata   <= 32'd0;
-		//gpio_out   <= 32'd0;
+    // ------------------ EX->WB PIPELINE TRANSFER ------------------
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            regsel_WB     <= 2'd0;
+            alu_result_WB <= 32'd0;
+            regwrite_WB   <= 1'b0;
+            rd_WB         <= 5'd0;
+            imm_u_WB      <= 20'd0;
+            pc4_WB        <= 32'd0;
+        end else if (!stall_EX) begin
+            regsel_WB     <= regsel_EX;
+            alu_result_WB <= alu_result_EX;
+            regwrite_WB   <= regwrite;
+            rd_WB         <= rd;
+            imm_u_WB      <= imm_u;
+            pc4_WB        <= pc_plus4_EX; // value written by JAL/JALR
+        end
+        // if stall_EX==1, hold current WB-stage control/data
+    end
 
-	    end else begin
-		// Default values each cycle
-		rf_we      <= 1'b0;
-		rf_waddr   <= 5'd0;
-		rf_wdata   <= 32'd0;
-
-		// -------- Register File Writeback --------
-		if (ex_regwrite_q) begin
-		    rf_we    <= 1'b1;
-		    rf_waddr <= rd;//ex_rd_q;
-
-		     case (ex_regsel_q)
-			2'b00: rf_wdata <= csr_out;
-		        2'b01: rf_wdata <= {imm_u, 12'b0};   // U-type (LUI/AUIPC)
-		        2'b10: rf_wdata <= ex_alu_R_q;            // ALU result
-		        2'b11: rf_wdata <= {20'b0, PC_EX};
-		        default: rf_wdata <= 32'd0;
-		    endcase
-
-		    `ifndef SYNTHESIS
-		    `ifndef ALTERA_RESERVED_QIS
-		        $display("[%0t] WB: write x%0d <= 0x%08h (signed %0d), csr_out=0x%08h,  ex_regsel_q=x%0d, ex_regwrite_q=%0d",
-		                 $time, ex_rd_q, rf_wdata, $signed(rf_wdata), csr_out, ex_regsel_q, rf_we);
-		    `endif
-		    `endif
-		end
-	    end
-	end
 endmodule

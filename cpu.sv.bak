@@ -8,23 +8,7 @@ module cpu (
 );
 
  logic [31:0] instmem [0:4095];
-/**
-// Initialize instruction memory
-initial begin
-    integer i;
-    // Set all memory locations to 0 to avoid 'X' fetches
-    for (i = 0; i < 4096; i = i + 1)
-        instmem[i] = 32'd0;
 
-    // Load instruction memory from file
-    $readmemh("instmem.dat", instmem);
-    `ifndef SYNTHESIS
-    `ifndef ALTERA_RESERVED_QIS
-	    $display("[%0t] Instruction memory initialized from instmem.dat", $time);
-    `endif
-    `endif
- end
-**/
 initial $readmemh ("instmem.dat",instmem);
 // ==========================================================
 // Program Counter + Fetch Register
@@ -36,7 +20,7 @@ logic [31:0] jalr_offset,jal_offset_EX;
 logic [1:0] pcsrc_EX;
 logic [11:0] PC_EX;
 logic [31:0] instruction_EX;
-logic [31:0] rf_readdata1;
+logic [31:0] rf_readdata1,rf_readdata2;
 logic stall_FETCH;
 logic stall_EX;
 
@@ -70,11 +54,10 @@ assign jalr_addr = rf_readdata1[11:0] + {{2{jalr_offset[11]}},jalr_offset[11:2]}
     logic [11:0] imm_i;
     logic [19:0] imm_u; 
     logic [6:0] opcode;
-    logic [31:0] R_EX;
-
+   
     control_unit my_control_unit(
 	    .instr   (instr_F),
-	    .R_EX    (R_EX),
+	    .R_EX    (ex_alu_r_q),
 	    .pcsrc_EX (pcsrc_EX),
 	    .aluop   (aluop),
 	    .alusrc  (alusrc),
@@ -135,7 +118,7 @@ end
     // ------------------------------------------------------------------
     // Register file signals (declare early)
     // ------------------------------------------------------------------
-    logic [31:0] rf_readdata1, rf_readdata2;
+   
     logic rf_we;
     logic [4:0] rf_waddr;
     logic [31:0] rf_wdata;
@@ -173,11 +156,6 @@ end
     logic [19:0] ex_imm_u_q;
     logic [31:0] ex_csr_read_q;
     logic [31:0] ex_rs1_val_q;
-     //hazard detection registers
-    
-    logic isload_EX;
-
- 
   
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin

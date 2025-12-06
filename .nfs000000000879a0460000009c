@@ -1,0 +1,513 @@
+# //  Questa Sim-64
+# //  Version 2020.1 linux_x86_64 Jan 28 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# OpenFile cpu.sv
+vlog -reportprogress 300 -work work /acct/jgunst/lab_jb/cpu.sv
+# QuestaSim-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
+# Start time: 21:34:55 on Dec 05,2025
+# vlog -reportprogress 300 -work work /acct/jgunst/lab_jb/cpu.sv 
+# -- Compiling module cpu
+# 
+# Top level modules:
+# 	cpu
+# End time: 21:34:55 on Dec 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.cpu
+# vsim work.cpu 
+# Start time: 21:35:18 on Dec 05,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.cpu(fast)
+vsim work.cpu -voptargs=+acc
+# End time: 21:35:58 on Dec 05,2025, Elapsed time: 0:00:40
+# Errors: 0, Warnings: 0
+# vsim work.cpu -voptargs="+acc" 
+# Start time: 21:35:58 on Dec 05,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.cpu(fast)
+# Loading work.control_unit(fast)
+# Loading work.instructionDecoder(fast)
+# Loading work.regfile(fast)
+# Loading work.alu(fast)
+add wave -position insertpoint sim:/cpu/*
+# Unable to lock WLF file "vsim.wlf". Retrying 1 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 2 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 3 times, errno 11
+# Cannot lock WLF file: "vsim.wlf"
+#           errno 11: Resource temporarily unavailable.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: jgunst  Hostname: cocsce-l3d22-08  ProcessID: 161564
+#           Attempting to use alternate WLF file "./wlftYLz52c".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftYLz52c
+do force.do
+# [0] CPU RESET asserted: pc <= 0
+# [100] CPU RESET asserted: pc <= 0
+# [200] CPU RESET asserted: pc <= 0
+# [300] CPU RESET asserted: pc <= 0
+# [400] CPU RESET asserted: pc <= 0
+# [500] CPU RESET asserted: pc <= 0
+# [600] CPU RESET asserted: pc <= 0
+# [700] CPU RESET asserted: pc <= 0
+# [800] CPU RESET asserted: pc <= 0
+# [900] CPU RESET asserted: pc <= 0
+# [1000] CPU RESET asserted: pc <= 0
+# [1100] DBG: pc=0 instr_F=0x00000000 ctrl_rd=0 rd_field=0 ex_rd_q=0 alu_R=0x00000000
+# [1100] FETCH: pc=0x000 -> instr=0xfff00213
+# [1200] WB: write x0 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x2, ex_regwrite_q=0
+# [1200] FETCH: pc=0x001 -> instr=0x00200293
+# [1200] DBG: pc=1 instr_F=0xfff00213 ctrl_rd=4 rd_field=4 ex_rd_q=0 alu_R=0xffffffff
+# [1300] DBG: pc=2 instr_F=0x00200293 ctrl_rd=5 rd_field=5 ex_rd_q=4 alu_R=0x00000002
+# [1300] FETCH: pc=0x002 -> instr=0x00520c63
+# [1300] WB: write x4 <= 0xffffffff (signed -1), csr_out=0x00000000,  ex_regsel_q=x2, ex_regwrite_q=1
+# [1400] FETCH: pc=0x003 -> instr=0x00521a63
+# [1400] DBG: pc=3 instr_F=0x00520c63 ctrl_rd=24 rd_field=24 ex_rd_q=5 alu_R=0xfffffffd
+# [1500] DBG: pc=9 instr_F=0x00521a63 ctrl_rd=20 rd_field=20 ex_rd_q=24 alu_R=0xfffffffd
+# [1600] FETCH: pc=0x004 -> instr=0x00524a63
+# [1600] DBG: pc=4 instr_F=0x00521a63 ctrl_rd=20 rd_field=20 ex_rd_q=20 alu_R=0x00000002
+# [1700] DBG: pc=9 instr_F=0x00524a63 ctrl_rd=20 rd_field=20 ex_rd_q=20 alu_R=0x00000001
+# [1800] FETCH: pc=0x005 -> instr=0x014000ef
+# [1800] DBG: pc=5 instr_F=0x00524a63 ctrl_rd=20 rd_field=20 ex_rd_q=20 alu_R=0x00000002
+# [1900] WB: write x20 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x3, ex_regwrite_q=0
+# [1900] DBG: pc=206 instr_F=0x014000ef ctrl_rd=1 rd_field=1 ex_rd_q=20 alu_R=0x00000014
+# [2000] FETCH: pc=0x006 -> instr=0x0200006f
+# [2000] DBG: pc=6 instr_F=0x014000ef ctrl_rd=1 rd_field=1 ex_rd_q=1 alu_R=0x00000000
+# [2100] WB: write x1 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x3, ex_regwrite_q=0
+# [2100] DBG: pc=b instr_F=0x0200006f ctrl_rd=0 rd_field=0 ex_rd_q=1 alu_R=0x00000020
+# [2200] FETCH: pc=0x007 -> instr=0x00000013
+# [2200] DBG: pc=7 instr_F=0x0200006f ctrl_rd=0 rd_field=0 ex_rd_q=0 alu_R=0x00000000
+# [2300] WB: write x0 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x2, ex_regwrite_q=0
+# [2300] DBG: pc=8 instr_F=0x00000013 ctrl_rd=0 rd_field=0 ex_rd_q=0 alu_R=0x00000000
+# [2300] FETCH: pc=0x008 -> instr=0xff1ff0ef
+# [2400] DBG: pc=8 instr_F=0xff1ff0ef ctrl_rd=1 rd_field=1 ex_rd_q=0 alu_R=0xxxxxxxxx
+# [2400] WB: write x0 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x3, ex_regwrite_q=1
+# [2500] FETCH: pc=0x009 -> instr=0x000080e7
+# [2500] DBG: pc=9 instr_F=0xff1ff0ef ctrl_rd=1 rd_field=1 ex_rd_q=1 alu_R=0xxxxxxxxx
+# [2600] DBG: pc=a instr_F=0x000080e7 ctrl_rd=1 rd_field=1 ex_rd_q=1 alu_R=0x00000000
+# [2600] FETCH: pc=0x00a -> instr=0xfe5254e3
+# [2700] FETCH: pc=0x00b -> instr=0x00527463
+# [2700] DBG: pc=b instr_F=0xfe5254e3 ctrl_rd=9 rd_field=9 ex_rd_q=1 alu_R=0x00000001
+# [2800] DBG: pc=5 instr_F=0x00527463 ctrl_rd=8 rd_field=8 ex_rd_q=9 alu_R=0x00000000
+# [2900] FETCH: pc=0x00c -> instr=0xfe0000e3
+# [2900] DBG: pc=c instr_F=0x00527463 ctrl_rd=8 rd_field=8 ex_rd_q=8 alu_R=0x00000002
+# [3000] DBG: pc=e instr_F=0xfe0000e3 ctrl_rd=1 rd_field=1 ex_rd_q=8 alu_R=0x00000000
+# [3100] FETCH: pc=0x00d -> instr=0xfc426ee3
+# [3100] DBG: pc=d instr_F=0xfe0000e3 ctrl_rd=1 rd_field=1 ex_rd_q=1 alu_R=0x00000000
+# [3200] DBG: pc=e instr_F=0xfc426ee3 ctrl_rd=29 rd_field=29 ex_rd_q=1 alu_R=0x00000000
+# [3200] FETCH: pc=0x00e -> instr=0xxxxxxxxx
+# [3300] FETCH: pc=0x00f -> instr=0xxxxxxxxx
+# [3300] DBG: pc=f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=29 alu_R=0xxxxxxxxx
+# [3400] DBG: pc=10 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3400] FETCH: pc=0x010 -> instr=0xxxxxxxxx
+# [3500] FETCH: pc=0x011 -> instr=0xxxxxxxxx
+# [3500] DBG: pc=11 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3600] DBG: pc=12 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3600] FETCH: pc=0x012 -> instr=0xxxxxxxxx
+# [3700] FETCH: pc=0x013 -> instr=0xxxxxxxxx
+# [3700] DBG: pc=13 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3800] DBG: pc=14 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3800] FETCH: pc=0x014 -> instr=0xxxxxxxxx
+# [3900] FETCH: pc=0x015 -> instr=0xxxxxxxxx
+# [3900] DBG: pc=15 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4000] DBG: pc=16 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4000] FETCH: pc=0x016 -> instr=0xxxxxxxxx
+# [4100] FETCH: pc=0x017 -> instr=0xxxxxxxxx
+# [4100] DBG: pc=17 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4200] DBG: pc=18 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4200] FETCH: pc=0x018 -> instr=0xxxxxxxxx
+# [4300] FETCH: pc=0x019 -> instr=0xxxxxxxxx
+# [4300] DBG: pc=19 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4400] DBG: pc=1a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4400] FETCH: pc=0x01a -> instr=0xxxxxxxxx
+# [4500] FETCH: pc=0x01b -> instr=0xxxxxxxxx
+# [4500] DBG: pc=1b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4600] DBG: pc=1c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4600] FETCH: pc=0x01c -> instr=0xxxxxxxxx
+# [4700] FETCH: pc=0x01d -> instr=0xxxxxxxxx
+# [4700] DBG: pc=1d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4800] DBG: pc=1e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4800] FETCH: pc=0x01e -> instr=0xxxxxxxxx
+# [4900] FETCH: pc=0x01f -> instr=0xxxxxxxxx
+# [4900] DBG: pc=1f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5000] DBG: pc=20 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5000] FETCH: pc=0x020 -> instr=0xxxxxxxxx
+# [5100] FETCH: pc=0x021 -> instr=0xxxxxxxxx
+# [5100] DBG: pc=21 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5200] DBG: pc=22 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5200] FETCH: pc=0x022 -> instr=0xxxxxxxxx
+# [5300] FETCH: pc=0x023 -> instr=0xxxxxxxxx
+# [5300] DBG: pc=23 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5400] DBG: pc=24 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5400] FETCH: pc=0x024 -> instr=0xxxxxxxxx
+# [5500] FETCH: pc=0x025 -> instr=0xxxxxxxxx
+# [5500] DBG: pc=25 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5600] DBG: pc=26 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5600] FETCH: pc=0x026 -> instr=0xxxxxxxxx
+# [5700] FETCH: pc=0x027 -> instr=0xxxxxxxxx
+# [5700] DBG: pc=27 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5800] DBG: pc=28 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5800] FETCH: pc=0x028 -> instr=0xxxxxxxxx
+# [5900] FETCH: pc=0x029 -> instr=0xxxxxxxxx
+# [5900] DBG: pc=29 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6000] DBG: pc=2a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6000] FETCH: pc=0x02a -> instr=0xxxxxxxxx
+# [6100] FETCH: pc=0x02b -> instr=0xxxxxxxxx
+# [6100] DBG: pc=2b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6200] DBG: pc=2c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6200] FETCH: pc=0x02c -> instr=0xxxxxxxxx
+# [6300] FETCH: pc=0x02d -> instr=0xxxxxxxxx
+# [6300] DBG: pc=2d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6400] DBG: pc=2e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6400] FETCH: pc=0x02e -> instr=0xxxxxxxxx
+# [6500] FETCH: pc=0x02f -> instr=0xxxxxxxxx
+# [6500] DBG: pc=2f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6600] DBG: pc=30 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6600] FETCH: pc=0x030 -> instr=0xxxxxxxxx
+# [6700] FETCH: pc=0x031 -> instr=0xxxxxxxxx
+# [6700] DBG: pc=31 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6800] DBG: pc=32 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6800] FETCH: pc=0x032 -> instr=0xxxxxxxxx
+# [6900] FETCH: pc=0x033 -> instr=0xxxxxxxxx
+# [6900] DBG: pc=33 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7000] DBG: pc=34 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7000] FETCH: pc=0x034 -> instr=0xxxxxxxxx
+# [7100] FETCH: pc=0x035 -> instr=0xxxxxxxxx
+# [7100] DBG: pc=35 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7200] DBG: pc=36 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7200] FETCH: pc=0x036 -> instr=0xxxxxxxxx
+# [7300] FETCH: pc=0x037 -> instr=0xxxxxxxxx
+# [7300] DBG: pc=37 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7400] DBG: pc=38 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7400] FETCH: pc=0x038 -> instr=0xxxxxxxxx
+# [7500] FETCH: pc=0x039 -> instr=0xxxxxxxxx
+# [7500] DBG: pc=39 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7600] DBG: pc=3a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7600] FETCH: pc=0x03a -> instr=0xxxxxxxxx
+# [7700] FETCH: pc=0x03b -> instr=0xxxxxxxxx
+# [7700] DBG: pc=3b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7800] DBG: pc=3c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7800] FETCH: pc=0x03c -> instr=0xxxxxxxxx
+# [7900] FETCH: pc=0x03d -> instr=0xxxxxxxxx
+# [7900] DBG: pc=3d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8000] DBG: pc=3e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8000] FETCH: pc=0x03e -> instr=0xxxxxxxxx
+# [8100] FETCH: pc=0x03f -> instr=0xxxxxxxxx
+# [8100] DBG: pc=3f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8200] DBG: pc=40 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8200] FETCH: pc=0x040 -> instr=0xxxxxxxxx
+# [8300] FETCH: pc=0x041 -> instr=0xxxxxxxxx
+# [8300] DBG: pc=41 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8400] DBG: pc=42 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8400] FETCH: pc=0x042 -> instr=0xxxxxxxxx
+# [8500] FETCH: pc=0x043 -> instr=0xxxxxxxxx
+# [8500] DBG: pc=43 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8600] DBG: pc=44 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8600] FETCH: pc=0x044 -> instr=0xxxxxxxxx
+# [8700] FETCH: pc=0x045 -> instr=0xxxxxxxxx
+# [8700] DBG: pc=45 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8800] DBG: pc=46 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8800] FETCH: pc=0x046 -> instr=0xxxxxxxxx
+# [8900] FETCH: pc=0x047 -> instr=0xxxxxxxxx
+# [8900] DBG: pc=47 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9000] DBG: pc=48 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9000] FETCH: pc=0x048 -> instr=0xxxxxxxxx
+# [9100] FETCH: pc=0x049 -> instr=0xxxxxxxxx
+# [9100] DBG: pc=49 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9200] DBG: pc=4a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9200] FETCH: pc=0x04a -> instr=0xxxxxxxxx
+# [9300] FETCH: pc=0x04b -> instr=0xxxxxxxxx
+# [9300] DBG: pc=4b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9400] DBG: pc=4c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9400] FETCH: pc=0x04c -> instr=0xxxxxxxxx
+# [9500] FETCH: pc=0x04d -> instr=0xxxxxxxxx
+# [9500] DBG: pc=4d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9600] DBG: pc=4e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9600] FETCH: pc=0x04e -> instr=0xxxxxxxxx
+# [9700] FETCH: pc=0x04f -> instr=0xxxxxxxxx
+# [9700] DBG: pc=4f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9800] DBG: pc=50 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9800] FETCH: pc=0x050 -> instr=0xxxxxxxxx
+# [9900] FETCH: pc=0x051 -> instr=0xxxxxxxxx
+# [9900] DBG: pc=51 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10000] DBG: pc=52 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10000] FETCH: pc=0x052 -> instr=0xxxxxxxxx
+# [10100] FETCH: pc=0x053 -> instr=0xxxxxxxxx
+# [10100] DBG: pc=53 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10200] DBG: pc=54 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10200] FETCH: pc=0x054 -> instr=0xxxxxxxxx
+# [10300] FETCH: pc=0x055 -> instr=0xxxxxxxxx
+# [10300] DBG: pc=55 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10400] DBG: pc=56 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10400] FETCH: pc=0x056 -> instr=0xxxxxxxxx
+# [10500] FETCH: pc=0x057 -> instr=0xxxxxxxxx
+# [10500] DBG: pc=57 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10600] DBG: pc=58 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10600] FETCH: pc=0x058 -> instr=0xxxxxxxxx
+# [10700] FETCH: pc=0x059 -> instr=0xxxxxxxxx
+# [10700] DBG: pc=59 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10800] DBG: pc=5a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10800] FETCH: pc=0x05a -> instr=0xxxxxxxxx
+# [10900] FETCH: pc=0x05b -> instr=0xxxxxxxxx
+# [10900] DBG: pc=5b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [11000] DBG: pc=5c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [11000] FETCH: pc=0x05c -> instr=0xxxxxxxxx
+vlog -reportprogress 300 -work work /acct/jgunst/lab_jb/cpu.sv
+# QuestaSim-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
+# Start time: 21:44:18 on Dec 05,2025
+# vlog -reportprogress 300 -work work /acct/jgunst/lab_jb/cpu.sv 
+# -- Compiling module cpu
+# 
+# Top level modules:
+# 	cpu
+# End time: 21:44:19 on Dec 05,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vsim -voptargs=+acc work.cpu
+# End time: 21:44:44 on Dec 05,2025, Elapsed time: 0:08:46
+# Errors: 0, Warnings: 2
+# vsim -voptargs="+acc" work.cpu 
+# Start time: 21:44:44 on Dec 05,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.cpu(fast)
+# Loading work.control_unit(fast)
+# Loading work.instructionDecoder(fast)
+# Loading work.regfile(fast)
+# Loading work.alu(fast)
+do force.do
+# [1100] DBG: pc=0 instr_F=0x00000000 ctrl_rd=0 rd_field=0 ex_rd_q=0 alu_R=0x00000000
+# [1200] WB: write x0 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x2, ex_regwrite_q=0
+# [1200] DBG: pc=1 instr_F=0xfff00213 ctrl_rd=4 rd_field=4 ex_rd_q=0 alu_R=0xffffffff
+# [1300] DBG: pc=2 instr_F=0x00200293 ctrl_rd=5 rd_field=5 ex_rd_q=4 alu_R=0x00000002
+# [1300] WB: write x4 <= 0xffffffff (signed -1), csr_out=0x00000000,  ex_regsel_q=x2, ex_regwrite_q=1
+# [1400] DBG: pc=3 instr_F=0x00520c63 ctrl_rd=24 rd_field=24 ex_rd_q=5 alu_R=0xfffffffd
+# [1500] DBG: pc=9 instr_F=0x00521a63 ctrl_rd=20 rd_field=20 ex_rd_q=24 alu_R=0xfffffffd
+# [1600] DBG: pc=9 instr_F=0x00521a63 ctrl_rd=20 rd_field=20 ex_rd_q=20 alu_R=0x00000002
+# [1700] DBG: pc=a instr_F=0x000080e7 ctrl_rd=1 rd_field=1 ex_rd_q=20 alu_R=0x00000000
+# [1800] DBG: pc=b instr_F=0xfe5254e3 ctrl_rd=9 rd_field=9 ex_rd_q=1 alu_R=0x00000001
+# [1900] DBG: pc=5 instr_F=0x00527463 ctrl_rd=8 rd_field=8 ex_rd_q=9 alu_R=0x00000000
+# [2000] DBG: pc=5 instr_F=0x00527463 ctrl_rd=8 rd_field=8 ex_rd_q=8 alu_R=0x00000002
+# [2100] WB: write x8 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x3, ex_regwrite_q=0
+# [2100] DBG: pc=e06 instr_F=0x014000ef ctrl_rd=1 rd_field=1 ex_rd_q=8 alu_R=0x00000014
+# [2200] DBG: pc=e06 instr_F=0x014000ef ctrl_rd=1 rd_field=1 ex_rd_q=1 alu_R=0x00000000
+# [2300] DBG: pc=e07 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=1 alu_R=0xxxxxxxxx
+# [2400] DBG: pc=e08 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2500] DBG: pc=e09 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2600] DBG: pc=e0a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2700] DBG: pc=e0b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2800] DBG: pc=e0c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2900] DBG: pc=e0d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3000] DBG: pc=e0e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3100] DBG: pc=e0f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3200] DBG: pc=e10 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3300] DBG: pc=e11 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3400] DBG: pc=e12 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3500] DBG: pc=e13 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3600] DBG: pc=e14 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3700] DBG: pc=e15 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3800] DBG: pc=e16 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3900] DBG: pc=e17 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4000] DBG: pc=e18 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4100] DBG: pc=e19 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4200] DBG: pc=e1a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4300] DBG: pc=e1b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4400] DBG: pc=e1c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4500] DBG: pc=e1d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4600] DBG: pc=e1e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4700] DBG: pc=e1f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4800] DBG: pc=e20 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4900] DBG: pc=e21 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5000] DBG: pc=e22 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5100] DBG: pc=e23 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5200] DBG: pc=e24 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5300] DBG: pc=e25 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5400] DBG: pc=e26 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5500] DBG: pc=e27 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5600] DBG: pc=e28 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5700] DBG: pc=e29 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5800] DBG: pc=e2a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5900] DBG: pc=e2b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6000] DBG: pc=e2c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6100] DBG: pc=e2d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6200] DBG: pc=e2e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6300] DBG: pc=e2f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6400] DBG: pc=e30 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6500] DBG: pc=e31 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6600] DBG: pc=e32 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6700] DBG: pc=e33 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6800] DBG: pc=e34 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6900] DBG: pc=e35 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7000] DBG: pc=e36 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7100] DBG: pc=e37 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7200] DBG: pc=e38 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7300] DBG: pc=e39 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7400] DBG: pc=e3a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7500] DBG: pc=e3b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7600] DBG: pc=e3c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7700] DBG: pc=e3d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7800] DBG: pc=e3e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7900] DBG: pc=e3f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8000] DBG: pc=e40 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8100] DBG: pc=e41 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8200] DBG: pc=e42 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8300] DBG: pc=e43 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8400] DBG: pc=e44 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8500] DBG: pc=e45 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8600] DBG: pc=e46 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8700] DBG: pc=e47 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8800] DBG: pc=e48 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8900] DBG: pc=e49 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9000] DBG: pc=e4a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9100] DBG: pc=e4b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9200] DBG: pc=e4c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9300] DBG: pc=e4d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9400] DBG: pc=e4e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9500] DBG: pc=e4f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9600] DBG: pc=e50 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9700] DBG: pc=e51 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9800] DBG: pc=e52 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9900] DBG: pc=e53 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10000] DBG: pc=e54 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10100] DBG: pc=e55 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10200] DBG: pc=e56 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10300] DBG: pc=e57 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10400] DBG: pc=e58 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10500] DBG: pc=e59 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10600] DBG: pc=e5a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10700] DBG: pc=e5b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10800] DBG: pc=e5c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10900] DBG: pc=e5d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [11000] DBG: pc=e5e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+restart -f
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading work.cpu(fast)
+# Loading work.control_unit(fast)
+# Loading work.instructionDecoder(fast)
+# Loading work.regfile(fast)
+# Loading work.alu(fast)
+add wave -position end sim:/cpu/*
+# Unable to lock WLF file "vsim.wlf". Retrying 1 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 2 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 3 times, errno 11
+# Cannot lock WLF file: "vsim.wlf"
+#           errno 11: Resource temporarily unavailable.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: jgunst  Hostname: cocsce-l3d22-08  ProcessID: 161564
+#           Attempting to use alternate WLF file "./wlftCTFw1x".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftCTFw1x
+do force.do
+# [1100] DBG: pc=0 instr_F=0x00000000 ctrl_rd=0 rd_field=0 ex_rd_q=0 alu_R=0x00000000
+# [1200] WB: write x0 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x2, ex_regwrite_q=0
+# [1200] DBG: pc=1 instr_F=0xfff00213 ctrl_rd=4 rd_field=4 ex_rd_q=0 alu_R=0xffffffff
+# [1300] DBG: pc=2 instr_F=0x00200293 ctrl_rd=5 rd_field=5 ex_rd_q=4 alu_R=0x00000002
+# [1300] WB: write x4 <= 0xffffffff (signed -1), csr_out=0x00000000,  ex_regsel_q=x2, ex_regwrite_q=1
+# [1400] DBG: pc=3 instr_F=0x00520c63 ctrl_rd=24 rd_field=24 ex_rd_q=5 alu_R=0xfffffffd
+# [1500] DBG: pc=9 instr_F=0x00521a63 ctrl_rd=20 rd_field=20 ex_rd_q=24 alu_R=0xfffffffd
+# [1600] DBG: pc=9 instr_F=0x00521a63 ctrl_rd=20 rd_field=20 ex_rd_q=20 alu_R=0x00000002
+# [1700] DBG: pc=a instr_F=0x000080e7 ctrl_rd=1 rd_field=1 ex_rd_q=20 alu_R=0x00000000
+# [1800] DBG: pc=b instr_F=0xfe5254e3 ctrl_rd=9 rd_field=9 ex_rd_q=1 alu_R=0x00000001
+# [1900] DBG: pc=5 instr_F=0x00527463 ctrl_rd=8 rd_field=8 ex_rd_q=9 alu_R=0x00000000
+# [2000] DBG: pc=5 instr_F=0x00527463 ctrl_rd=8 rd_field=8 ex_rd_q=8 alu_R=0x00000002
+# [2100] WB: write x8 <= 0x00000000 (signed 0), csr_out=0x00000000,  ex_regsel_q=x3, ex_regwrite_q=0
+# [2100] DBG: pc=e06 instr_F=0x014000ef ctrl_rd=1 rd_field=1 ex_rd_q=8 alu_R=0x00000014
+# [2200] DBG: pc=e06 instr_F=0x014000ef ctrl_rd=1 rd_field=1 ex_rd_q=1 alu_R=0x00000000
+# [2300] DBG: pc=e07 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=1 alu_R=0xxxxxxxxx
+# [2400] DBG: pc=e08 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2500] DBG: pc=e09 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2600] DBG: pc=e0a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2700] DBG: pc=e0b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2800] DBG: pc=e0c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [2900] DBG: pc=e0d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3000] DBG: pc=e0e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3100] DBG: pc=e0f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3200] DBG: pc=e10 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3300] DBG: pc=e11 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3400] DBG: pc=e12 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3500] DBG: pc=e13 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3600] DBG: pc=e14 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3700] DBG: pc=e15 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3800] DBG: pc=e16 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [3900] DBG: pc=e17 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4000] DBG: pc=e18 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4100] DBG: pc=e19 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4200] DBG: pc=e1a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4300] DBG: pc=e1b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4400] DBG: pc=e1c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4500] DBG: pc=e1d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4600] DBG: pc=e1e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4700] DBG: pc=e1f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4800] DBG: pc=e20 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [4900] DBG: pc=e21 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5000] DBG: pc=e22 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5100] DBG: pc=e23 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5200] DBG: pc=e24 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5300] DBG: pc=e25 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5400] DBG: pc=e26 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5500] DBG: pc=e27 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5600] DBG: pc=e28 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5700] DBG: pc=e29 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5800] DBG: pc=e2a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [5900] DBG: pc=e2b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6000] DBG: pc=e2c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6100] DBG: pc=e2d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6200] DBG: pc=e2e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6300] DBG: pc=e2f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6400] DBG: pc=e30 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6500] DBG: pc=e31 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6600] DBG: pc=e32 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6700] DBG: pc=e33 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6800] DBG: pc=e34 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [6900] DBG: pc=e35 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7000] DBG: pc=e36 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7100] DBG: pc=e37 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7200] DBG: pc=e38 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7300] DBG: pc=e39 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7400] DBG: pc=e3a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7500] DBG: pc=e3b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7600] DBG: pc=e3c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7700] DBG: pc=e3d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7800] DBG: pc=e3e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [7900] DBG: pc=e3f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8000] DBG: pc=e40 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8100] DBG: pc=e41 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8200] DBG: pc=e42 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8300] DBG: pc=e43 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8400] DBG: pc=e44 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8500] DBG: pc=e45 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8600] DBG: pc=e46 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8700] DBG: pc=e47 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8800] DBG: pc=e48 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [8900] DBG: pc=e49 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9000] DBG: pc=e4a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9100] DBG: pc=e4b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9200] DBG: pc=e4c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9300] DBG: pc=e4d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9400] DBG: pc=e4e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9500] DBG: pc=e4f instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9600] DBG: pc=e50 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9700] DBG: pc=e51 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9800] DBG: pc=e52 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [9900] DBG: pc=e53 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10000] DBG: pc=e54 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10100] DBG: pc=e55 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10200] DBG: pc=e56 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10300] DBG: pc=e57 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10400] DBG: pc=e58 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10500] DBG: pc=e59 instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10600] DBG: pc=e5a instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10700] DBG: pc=e5b instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10800] DBG: pc=e5c instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [10900] DBG: pc=e5d instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
+# [11000] DBG: pc=e5e instr_F=0xxxxxxxxx ctrl_rd=x rd_field=x ex_rd_q=x alu_R=0xxxxxxxxx
